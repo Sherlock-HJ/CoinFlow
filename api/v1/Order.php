@@ -21,13 +21,13 @@ class Order
 
         $db->query("CREATE TABLE IF NOT EXISTS `pay_flow` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tradnum` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   `body` varchar(100) COLLATE utf8_bin DEFAULT NULL COMMENT '商品名称',
   `total_fee` varchar(20) COLLATE utf8_bin DEFAULT '0' COMMENT '总金额',
   `fromuid` int(11) NOT NULL,
   `touid` int(11) NOT NULL,
   `fromusercode` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   `tousercode` varchar(50) COLLATE utf8_bin DEFAULT NULL,
-  `tradnum` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   `out_trade_no` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '商户订单号',
   `trade_type` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '交易类型',
   `notify_url` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '通知地址',
@@ -68,11 +68,11 @@ class Order
         }
 
         $order_bodys = array();
-        $order_body = urldecode($params["order_body"]);
-        $tmpArr = explode("&",$order_body);
+        $order_body = urldecode(urldecode($params["order_body"]));
+        $tmpArr = explode("&", $order_body);
 
-        foreach ($tmpArr as $value){
-            $tmpArr2 = explode("=",$value);
+        foreach ($tmpArr as $value) {
+            $tmpArr2 = explode("=", $value);
             $order_bodys[$tmpArr2[0]] = $tmpArr2[1];
         }
 
@@ -121,7 +121,7 @@ class Order
         $sql = sprintf("INSERT INTO pay_flow (note,trade_type,notify_url,out_trade_no,ctime,total_fee,touid, tousercode, fromuid, fromusercode ,body, tradnum, paystatus) VALUE ('%s','%s','%s','%s',%d,%d,%d,'%s',%d,'%s','%s','%s',%d)"
             , $order_bodys["note"], $order_bodys["trade_type"], $order_bodys["notify_url"], $order_bodys["out_trade_no"], time(), $order_bodys["total_fee"], $toUid, $toUsercode, "1", "wo", $order_bodys["body"], $tradnum, 0);
         if ($db->query($sql)) {
-            return ["成功"];
+            return ["tradnum" => $tradnum];
         }
         return ["失败"];
     }
@@ -131,7 +131,37 @@ class Order
      */
     function pay($params)
     {
-$url = "http://192.168.113.107:8085/api?orgId=153922337400001&f=trans&p={\"from\":\"9072000000153922344546769\",\"to\":\"9072000000153922506995820\",\"psw\":\"22\",\"money\":\"100\",\"desc\":\"a\"}";
+        $loob = Check::willPass($params, ["pwd",//转账密码
+            "nonce_str",//随机字符串
+            "body",//商品描述
+            "out_trade_no",//商户订单号
+            "total_fee",//总金额
+            "notify_url",//通知地址
+            "trade_type",//交易类型
+            "sign",//签名
+            "note",//备注
+            "timestamp",//当前时间点（秒）
+        ]);
+        if ($loob !== 1) {
+            return $loob;
+        }
+
+        $url = "https://192.168.113.107:8085/api";
+        $net = new NetWork();
+        $paramsPOST = [];
+        $paramsPOST["orgId"] = "153922337400001";
+        $paramsPOST["f"] = "trans";
+
+        $p = [];
+        $p["from"] = "9072000000153922344546769";
+        $p["to"] = "9072000000153922506995820";
+        $p["psw"] = "22";
+        $p["money"] = "100";
+        $p["desc"] = "a";
+
+        $paramsPOST["p"] = json_encode($p);
+
+        return $net->post("http://192.168.113.107:8085/api", $paramsPOST);
     }
 
     function de($params)

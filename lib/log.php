@@ -33,7 +33,7 @@ function createlog($gen)
 
     $filename = date("Y-m-d") . ".html";
 
-    $fileDir = "log";
+    $fileDir = "runtime/log";
 
     $filepath = $fileDir . "/" . $filename;
 

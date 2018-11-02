@@ -6,4 +6,6 @@
  * Time: 下午3:52
  */
 
+// 调试模式
+define('DEBUG', true);
 

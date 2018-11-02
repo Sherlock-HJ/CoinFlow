@@ -10,7 +10,7 @@
 session_start();
 
 $lastTime = $_SESSION["last_time"];
-if (empty($lastTime)|| time()- $lastTime >10){
+if (empty($lastTime)|| time()- $lastTime >1){
     $_SESSION["last_time"] = time();
 
 }else{
@@ -22,10 +22,6 @@ if (empty($lastTime)|| time()- $lastTime >10){
 
 // 项目根路径
 define('BASEPATH', dirname(__FILE__) . "/");
-// 调试模式
-define('DEBUG', true);
-
-//TODO 日志
 
 require_once BASEPATH . "lib/config.php";
 require_once BASEPATH . "lib/log.php";
@@ -66,7 +62,7 @@ if (!method_exists($object, $funcName)) {
 }
 
 $params = array();
-foreach ($_REQUEST as $key => $value) {
+foreach ($_POST as $key => $value) {
     if (!empty($value)) {
         $params[$key] = $value;
     }
@@ -99,3 +95,5 @@ if ($result) {
 
     echo "数据错误";
 }
+
+//TODO 加日志

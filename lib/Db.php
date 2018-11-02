@@ -11,7 +11,6 @@ class Db {
         $params = include (BASEPATH."lib/database.php");
         $db->connect($params["hostname"],$params["username"],$params["password"],$params["database"]);
 
-
         return $db;
     }
 
@@ -19,11 +18,11 @@ class Db {
     function connect($dbhost, $dbuser, $dbpw, $dbname = '', $pconnect = 0, $halt = TRUE) {
         if($pconnect) {
             if(!$this->link = @mysql_pconnect($dbhost, $dbuser, $dbpw)) {
-                $halt && $this->halt('Can not connect to MySQL server');
+                return ["error_code"=>3002,"error_info"=>$this->error()];
             }
         } else {
             if(!$this->link = @mysql_connect($dbhost, $dbuser, $dbpw, 1)) {
-                $halt && $this->halt('Can not connect to MySQL server');
+                return ["error_code"=>3001,"error_info"=>$this->error()];
             }
         }
 
@@ -53,7 +52,7 @@ class Db {
 
         if(!($query = $func($sql, $this->link)) && $type != 'SILENT') {
             if ($callbacks == ''){
-                $this->halt('MySQL Query Error'.$this->error($this->link), $sql);
+                return ["error_code"=>3000,"error_info"=>$this->error()];
             }else{
                 return false;
             }
@@ -176,21 +175,7 @@ class Db {
         return $array;
     }
 
-    function halt($message = '', $sql = '') {
-        $dberror = $this->error();
-        $dberrno = $this->errno();
-        $help_link = "http://faq.comsenz.com/?type=mysql&dberrno=".rawurlencode($dberrno)."&dberror=".rawurlencode($dberror);
-        echo '{"rt":0,"msg":"'.$message.'","ecode":"-288","info":{}}';
-        $errmsg =  "<div style=\"position:absolute;font-size:11px;font-family:verdana,arial;background:#EBEBEB;padding:0.5em;\">
-				<b>MySQL Error</b><br>
-				<b>Message</b>: $message<br>
-				<b>SQL</b>: $sql<br>
-				<b>Error</b>: $dberror<br>
-				<b>Errno.</b>: $dberrno<br>
-				<a href=\"$help_link\" target=\"_blank\">Click here to seek help.</a>
-				</div>";
-        exit();
-    }
+
 }
 
 ?>
