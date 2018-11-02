@@ -4,39 +4,33 @@
  * CreateTime: 2016/07/27 10:26
  * Description：
  */
+
+// 应用入口文件
+
 // 权限控制
 //include_once './auth.php';
 
 session_start();
 
 $lastTime = $_SESSION["last_time"];
-if (empty($lastTime)|| time()- $lastTime >1){
+if (empty($lastTime) || time() - $lastTime > 1) {
     $_SESSION["last_time"] = time();
 
-}else{
+} else {
     header("HTTP/1.0 600 Business errors");
     die("接口重复调用");
 }
 
 
-
 // 项目根路径
 define('BASEPATH', dirname(__FILE__) . "/");
 
-require_once BASEPATH . "lib/config.php";
-require_once BASEPATH . "lib/log.php";
-require_once BASEPATH . "lib/Check.php";
+include_once BASEPATH . "lib/config.php";
 
-// 应用入口文件
-date_default_timezone_set("PRC");
-header('Content-type: text/html;charset=utf-8');
-if (DEBUG) {
-    header("Access-Control-Allow-Origin: *");
-}
-
-if (empty($_SERVER["PATH_INFO"])){
+if (empty($_SERVER["PATH_INFO"])) {
     die("hello");
 }
+
 $path_info = $_SERVER["PATH_INFO"];
 $classPath = dirname($path_info);
 $funcName = basename($path_info);
@@ -61,6 +55,8 @@ if (!method_exists($object, $funcName)) {
     die("2路径不正确");
 }
 
+include_once BASEPATH . "lib/Check.php";
+
 $params = array();
 foreach ($_POST as $key => $value) {
     if (!empty($value)) {
@@ -70,22 +66,23 @@ foreach ($_POST as $key => $value) {
 
 $result = call_user_func(array($object, $funcName), $params);
 
-if (!is_array($result)){
-    if (DEBUG){
+//is_object()    instanceof    is_subclass_of()
+if (!is_array($result)) {
+    if (DEBUG) {
         die ($result);
 
-    }else{
-        die("响应结果不是json") ;
+    } else {
+        die("响应结果不是json");
     }
 
 }
 if ($result) {
-    if (empty($result["error_code"])&&empty($result["error_info"])) {
+    if (empty($result["error_code"]) && empty($result["error_info"])) {
         echo json_encode($result);
 
     } else {
         header("HTTP/1.0 600 Business errors");
-        if (DEBUG){
+        if (DEBUG) {
             $result["root_path"] = BASEPATH;
         }
         echo json_encode($result);
@@ -97,3 +94,4 @@ if ($result) {
 }
 
 //TODO 加日志
+include_once BASEPATH . "lib/log.php";

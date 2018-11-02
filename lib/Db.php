@@ -18,11 +18,11 @@ class Db {
     function connect($dbhost, $dbuser, $dbpw, $dbname = '', $pconnect = 0, $halt = TRUE) {
         if($pconnect) {
             if(!$this->link = @mysql_pconnect($dbhost, $dbuser, $dbpw)) {
-                return ["error_code"=>3002,"error_info"=>$this->error()];
+                die($this->error());
             }
         } else {
             if(!$this->link = @mysql_connect($dbhost, $dbuser, $dbpw, 1)) {
-                return ["error_code"=>3001,"error_info"=>$this->error()];
+                die($this->error());
             }
         }
 
@@ -52,7 +52,7 @@ class Db {
 
         if(!($query = $func($sql, $this->link)) && $type != 'SILENT') {
             if ($callbacks == ''){
-                return ["error_code"=>3000,"error_info"=>$this->error()];
+                die($this->error());
             }else{
                 return false;
             }
@@ -83,7 +83,7 @@ class Db {
     }
 
     function error() {
-        return (($this->link) ? mysql_error($this->link) : mysql_error());
+        return "MySQL Error : ".(($this->link) ? mysql_error($this->link) : mysql_error());
     }
 
     function errno() {

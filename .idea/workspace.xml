@@ -2,16 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d400a1c6-32b9-40fc-b02e-9e6b9ee94af8" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.htaccess" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/v1/Order.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/Order.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Db.php" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Db.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/NetWork.php" beforeDir="false" afterPath="$PROJECT_DIR$/lib/NetWork.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Signature.php" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Signature.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/lib/config.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/log.php" beforeDir="false" afterPath="$PROJECT_DIR$/lib/log.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/sqlconn.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/2018-08-28.html" beforeDir="false" afterPath="$PROJECT_DIR$/runtime/log/2018-08-28.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/2018-11-01.html" beforeDir="false" afterPath="$PROJECT_DIR$/runtime/log/2018-11-01.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/m.php" beforeDir="false" afterPath="$PROJECT_DIR$/m.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -30,12 +24,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="php" value="2032" />
+          <entry key="php" value="2203" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PHP" value="2015" />
+          <entry key="PHP" value="2186" />
           <entry key="SQL" value="17" />
         </counts>
       </usages-collector>
@@ -43,12 +37,12 @@
         <counts>
           <entry key="crt" value="1" />
           <entry key="gitattributes" value="1" />
-          <entry key="php" value="18" />
+          <entry key="php" value="21" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="PHP" value="18" />
+          <entry key="PHP" value="21" />
           <entry key="PLAIN_TEXT" value="2" />
         </counts>
       </usages-collector>
@@ -61,20 +55,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/m.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="433">
-              <caret line="98" column="10" lean-forward="true" selection-start-line="98" selection-start-column="10" selection-end-line="98" selection-end-column="10" />
+            <state relative-caret-position="120">
+              <caret line="68" column="47" selection-start-line="68" selection-start-column="47" selection-end-line="68" selection-end-column="47" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/Db.php">
+        <entry file="file://$PROJECT_DIR$/api/v1/Order.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="12" selection-start-line="12" selection-end-line="12" />
+            <state relative-caret-position="172">
+              <caret line="112" column="31" selection-start-line="112" selection-start-column="21" selection-end-line="112" selection-end-column="31" />
+              <folding>
+                <marker date="1541149606756" expanded="true" signature="351:1333" ph="CREATE TABLE... IF" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -82,25 +79,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/config.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="88">
-              <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+            <state relative-caret-position="374">
+              <caret line="22" column="12" lean-forward="true" selection-start-line="22" selection-start-column="12" selection-end-line="22" selection-end-column="12" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitattributes">
-          <provider selected="true" editor-type-id="text-editor" />
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/Check.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="286">
+              <caret line="18" column="36" lean-forward="true" selection-start-line="18" selection-start-column="36" selection-end-line="18" selection-end-column="36" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/api/v1/Order.php">
+        <entry file="file://$PROJECT_DIR$/lib/Signature.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="18" column="25" lean-forward="true" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
-              <folding>
-                <marker date="1541144406394" expanded="true" signature="351:1333" ph="CREATE TABLE... IF" />
-              </folding>
+            <state relative-caret-position="286">
+              <caret line="27" column="28" lean-forward="true" selection-start-line="27" selection-end-line="28" />
             </state>
           </provider>
         </entry>
@@ -110,15 +108,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-1217">
               <caret line="31" column="33" selection-start-line="31" selection-start-column="33" selection-end-line="31" selection-end-column="33" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/Signature.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="254">
-              <caret line="45" lean-forward="true" selection-start-line="45" selection-end-line="45" />
             </state>
           </provider>
         </entry>
@@ -144,9 +133,10 @@
       <find>BASEPATH</find>
       <find>PATH_INFO</find>
       <find>D_BUG</find>
-      <find>time</find>
       <find>exists</find>
       <find>halt</find>
+      <find>require</find>
+      <find>time</find>
     </findStrings>
     <replaceStrings>
       <replace>DEBUG</replace>
@@ -163,13 +153,13 @@
         <option value="$PROJECT_DIR$/crt/mxapi.crt" />
         <option value="$PROJECT_DIR$/api/v1/org.php" />
         <option value="$PROJECT_DIR$/lib/database.php" />
-        <option value="$PROJECT_DIR$/lib/Signature.php" />
         <option value="$PROJECT_DIR$/lib/NetWork.php" />
-        <option value="$PROJECT_DIR$/api/v1/Order.php" />
         <option value="$PROJECT_DIR$/lib/Check.php" />
-        <option value="$PROJECT_DIR$/lib/Db.php" />
-        <option value="$PROJECT_DIR$/lib/config.php" />
         <option value="$PROJECT_DIR$/lib/log.php" />
+        <option value="$PROJECT_DIR$/lib/Db.php" />
+        <option value="$PROJECT_DIR$/lib/Signature.php" />
+        <option value="$PROJECT_DIR$/api/v1/Order.php" />
+        <option value="$PROJECT_DIR$/lib/config.php" />
         <option value="$PROJECT_DIR$/m.php" />
       </list>
     </option>
@@ -256,6 +246,9 @@
       <method v="2" />
     </configuration>
   </component>
+  <component name="StructureViewFactory">
+    <option name="ACTIVE_ACTIONS" value=",SHOW_INHERITED" />
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -268,12 +261,12 @@
       <updated>1541039093965</updated>
       <workItem from="1541039095441" duration="20874000" />
       <workItem from="1541118828783" duration="3737000" />
-      <workItem from="1541123216018" duration="20779000" />
+      <workItem from="1541123216018" duration="24301000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="45390000" />
+    <option name="totallyTimeSpent" value="48912000" />
   </component>
   <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
@@ -433,37 +426,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/Signature.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="45" lean-forward="true" selection-start-line="45" selection-end-line="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/NetWork.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1217">
-          <caret line="31" column="33" selection-start-line="31" selection-start-column="33" selection-end-line="31" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/Check.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="20" column="29" selection-start-line="20" selection-end-line="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/v1/Order.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="18" column="25" lean-forward="true" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
-          <folding>
-            <marker date="1541144406394" expanded="true" signature="351:1333" ph="CREATE TABLE... IF" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/sqlconn.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-161" />
@@ -483,29 +445,64 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/Db.php">
+    <entry file="file://$PROJECT_DIR$/.gitattributes">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
+        <state relative-caret-position="44">
+          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/m.php">
+    <entry file="file://$PROJECT_DIR$/lib/Db.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="433">
-          <caret line="98" column="10" lean-forward="true" selection-start-line="98" selection-start-column="10" selection-end-line="98" selection-end-column="10" />
+        <state relative-caret-position="267">
+          <caret line="85" column="30" selection-start-line="85" selection-start-column="30" selection-end-line="85" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/NetWork.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1217">
+          <caret line="31" column="33" selection-start-line="31" selection-start-column="33" selection-end-line="31" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/Signature.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="27" column="28" lean-forward="true" selection-start-line="27" selection-end-line="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/Check.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="18" column="36" lean-forward="true" selection-start-line="18" selection-start-column="36" selection-end-line="18" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/v1/Order.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="172">
+          <caret line="112" column="31" selection-start-line="112" selection-start-column="21" selection-end-line="112" selection-end-column="31" />
+          <folding>
+            <marker date="1541149606756" expanded="true" signature="351:1333" ph="CREATE TABLE... IF" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/config.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+        <state relative-caret-position="374">
+          <caret line="22" column="12" lean-forward="true" selection-start-line="22" selection-start-column="12" selection-end-line="22" selection-end-column="12" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitattributes">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/m.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="68" column="47" selection-start-line="68" selection-start-column="47" selection-end-line="68" selection-end-column="47" />
+        </state>
+      </provider>
     </entry>
   </component>
 </project>

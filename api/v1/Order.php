@@ -68,7 +68,7 @@ class Order
         }
 
         $order_bodys = array();
-        $order_body = urldecode(urldecode($params["order_body"]));
+        $order_body = urldecode($params["order_body"]);
         $tmpArr = explode("&", $order_body);
 
         foreach ($tmpArr as $value) {
@@ -185,9 +185,8 @@ class Order
 
         $signObj = new Signature();
         $url = $signObj->enSign($params, BASEPATH . "crt/mxapi.key");
+        $url  = urlencode($url);
         echo $url;
-//        $url  = urlencode();
-//        echo $url;
         return 1;
 
     }
