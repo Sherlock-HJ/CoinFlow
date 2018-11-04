@@ -68,6 +68,7 @@ foreach ($_POST as $key => $value) {
 include_once BASEPATH . "lib/Check.php";
 include_once BASEPATH . "lib/helper.php";
 
+//执行类中的方法
 $result = call_user_func(array($object, $funcName), $params);
 
 //    instanceof
@@ -81,4 +82,4 @@ if (is_object($result)&& get_class($result) === 'Response') {
 }
 
 //TODO 加日志
-include_once BASEPATH . "lib/log.php";
+include_once BASEPATH . "lib/log1.php";
