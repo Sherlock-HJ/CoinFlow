@@ -104,16 +104,16 @@ class Order
             $toUsercode = $row["usercode"];
             $toUid = $row["uid"];
         } else {
-            return ["error_info" => "无此商家"];
+            return error("无此商家");
         }
 
         $signObj = new Signature();
         $loob = $signObj->deSign($order_bodys, $certName);
         if ($loob === 0) {
-            return ["error_info" => "签名不正确"];
+            return error("签名不正确");
         }
         if ($loob === -1) {
-            return ["error_info" => "签名错误"];
+            return error("签名错误");
         }
 
         $tradnum = "123dfe";
@@ -123,7 +123,7 @@ class Order
         if ($db->query($sql)) {
             return ["tradnum" => $tradnum];
         }
-        return ["失败"];
+        return error("失败");
     }
 
     /** 支付
@@ -191,9 +191,5 @@ class Order
 
     }
 
-    function test()
-    {
-        return json(["dfdf"=>"dfdf"]);
 
-    }
 }

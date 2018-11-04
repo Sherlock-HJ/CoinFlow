@@ -9,7 +9,7 @@
 
 if (!function_exists('json')) {
     /**
-     * 获取\think\response\Json对象实例
+     * 获取Response对象实例
      * @param mixed   $data 返回的数据
      * @param integer $code 状态码
      * @param array   $header 头部
@@ -20,5 +20,29 @@ if (!function_exists('json')) {
     {
         include_once BASEPATH."lib/Response.php";
         return new Response($data, $code, $header, $options);
+    }
+}
+
+if (!function_exists('error')) {
+    /**
+     * 获取Response对象实例
+     * @param mixed   $data 返回的数据
+     * @param integer $code 状态码
+     * @param array   $header 头部
+     * @param array   $options 参数
+     * @return Response
+     */
+
+    function error($info = "", $code =null ,  $header = [], $options = [])
+    {
+        include_once BASEPATH."lib/Response.php";
+
+        $data = [];
+        if ($code != null){
+            $data["error_code"] = $code;
+        }
+        $data["error_info"] = $info;
+
+        return new Response($data, 403, $header, $options);
     }
 }

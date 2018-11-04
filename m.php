@@ -18,7 +18,6 @@ if (empty($lastTime) || time() - $lastTime > 1) {
 
 } else {
     http_response_code(403);
-
     die("接口重复调用");
 }
 
@@ -26,7 +25,6 @@ if (empty($lastTime) || time() - $lastTime > 1) {
 // 项目根路径
 define('BASEPATH', dirname(__FILE__) . "/");
 
-include_once BASEPATH . "lib/helper.php";
 include_once BASEPATH . "lib/config.php";
 
 if (empty($_SERVER["PATH_INFO"])) {
@@ -39,27 +37,27 @@ $funcName = basename($path_info);
 
 $filename = BASEPATH . "api" . $classPath . ".php";
 if (!file_exists($filename)) {
-    die("0路径不正确");
-
+    http_response_code(404);
+    die("路径不正确");
 }
+
 include_once $filename;
 
 $className = basename($classPath);
 if (!class_exists($className)) {
-    die("1路径不正确");
-
+    http_response_code(404);
+    die("路径不正确");
 }
 
 $object = new $className;
 
 if (!method_exists($object, $funcName)) {
-
-    die("2路径不正确");
+    http_response_code(404);
+    die("路径不正确");
 }
 
-include_once BASEPATH . "lib/Check.php";
-include_once BASEPATH . "lib/helper.php";
 
+//参数过滤
 $params = array();
 foreach ($_POST as $key => $value) {
     if (!empty($value)) {
@@ -67,34 +65,19 @@ foreach ($_POST as $key => $value) {
     }
 }
 
+include_once BASEPATH . "lib/Check.php";
+include_once BASEPATH . "lib/helper.php";
+
 $result = call_user_func(array($object, $funcName), $params);
-// TODO
-//$result->send();
-//is_object()    instanceof    is_subclass_of()
-if (!is_array($result)) {
-    if (DEBUG) {
-        die ($result);
 
-    } else {
-        die("响应结果不是json");
-    }
+//    instanceof
+if (is_object($result)&& get_class($result) === 'Response') {
 
-}
-if ($result) {
-    if (empty($result["error_code"]) && empty($result["error_info"])) {
-        echo json_encode($result);
+    $result->send();
 
-    } else {
-        http_response_code(403);
-        if (DEBUG) {
-            $result["root_path"] = BASEPATH;
-        }
-        echo json_encode($result);
-    }
 } else {
-    http_response_code(403);
-
-    echo "数据错误";
+    http_response_code(500);
+    echo "请用helper.php 文件里的 json() 方法返回数据！";
 }
 
 //TODO 加日志

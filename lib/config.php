@@ -9,16 +9,8 @@
 // 调试模式
 define('DEBUG', true);
 
-//返回字段
-define('ERROR_INFO','error_info');
-define('ERROR_CODE','error_info');
-
-
-
 //设置时区 为 中国
 date_default_timezone_set("PRC");
-//设置 响应头
-header('Content-type: text/html;charset=utf-8');
 
 if (DEBUG) {
     // 跨域

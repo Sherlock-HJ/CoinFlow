@@ -30,7 +30,7 @@ function en()
     $parmas = $sign->enSign($_POST, BASEPATH . "crt/mxapi.key");
     return $parmas;
     $net = new NetWork();
-   return $net->get("http://localhost/CoinFlow/m.php/v1/org/de?".$parmas,[]);
+   return $net->get("http://localhost/CoinFlow/m.php/coinos/org/de?".$parmas,[]);
 }
 
 function de()

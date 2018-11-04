@@ -18,8 +18,8 @@ class Check
         $loob = 1;
         foreach ($checks as $value){
             if (empty($params[$value])) {
-                $loob = ["error_code"=>2000,"error_info"=>"缺少参数: ".$value];
-                break;
+
+                return error(2000,"缺少参数: ".$value);
             }
         }
         return $loob;
