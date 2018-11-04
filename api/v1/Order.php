@@ -193,8 +193,7 @@ class Order
 
     function test()
     {
-        $net = new NetWork();
-        return $net->get("https://www.baidu.com", []);
+        return json(["dfdf"=>"dfdf"]);
 
     }
 }

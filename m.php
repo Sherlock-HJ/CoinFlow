@@ -17,7 +17,8 @@ if (empty($lastTime) || time() - $lastTime > 1) {
     $_SESSION["last_time"] = time();
 
 } else {
-    header("HTTP/1.0 600 Business errors");
+    http_response_code(403);
+
     die("接口重复调用");
 }
 
@@ -25,6 +26,7 @@ if (empty($lastTime) || time() - $lastTime > 1) {
 // 项目根路径
 define('BASEPATH', dirname(__FILE__) . "/");
 
+include_once BASEPATH . "lib/helper.php";
 include_once BASEPATH . "lib/config.php";
 
 if (empty($_SERVER["PATH_INFO"])) {
@@ -56,6 +58,7 @@ if (!method_exists($object, $funcName)) {
 }
 
 include_once BASEPATH . "lib/Check.php";
+include_once BASEPATH . "lib/helper.php";
 
 $params = array();
 foreach ($_POST as $key => $value) {
@@ -65,7 +68,8 @@ foreach ($_POST as $key => $value) {
 }
 
 $result = call_user_func(array($object, $funcName), $params);
-
+// TODO
+//$result->send();
 //is_object()    instanceof    is_subclass_of()
 if (!is_array($result)) {
     if (DEBUG) {
@@ -81,14 +85,14 @@ if ($result) {
         echo json_encode($result);
 
     } else {
-        header("HTTP/1.0 600 Business errors");
+        http_response_code(403);
         if (DEBUG) {
             $result["root_path"] = BASEPATH;
         }
         echo json_encode($result);
     }
 } else {
-    header("HTTP/1.0 600 Business errors");
+    http_response_code(403);
 
     echo "数据错误";
 }
