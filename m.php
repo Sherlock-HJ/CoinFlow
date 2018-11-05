@@ -82,4 +82,4 @@ if (is_object($result)&& get_class($result) === 'Response') {
 }
 
 //TODO 加日志
-include_once BASEPATH . "lib/log1.php";
+include_once BASEPATH . "lib/Log.php";
