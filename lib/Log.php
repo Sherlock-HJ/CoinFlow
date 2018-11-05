@@ -8,8 +8,21 @@
 
 class Log
 {
+    /**
+     * Class Log
+     * @package think
+     *
+     * @method void log($msg) static 记录一般日志
+     * @method void error($msg) static 记录错误日志
+     * @method void info($msg) static 记录一般信息日志
+     * @method void sql($msg) static 记录 SQL 查询日志
+     * @method void notice($msg) static 记录提示日志
+     * @method void alert($msg) static 记录报警日志
+     */
+
 
     private $fileDir;
+
     function __construct()
     {
 
@@ -21,7 +34,8 @@ class Log
     }
 
 
-    function toString($gen) {
+    function toString($gen)
+    {
 
         if (is_string($gen) || is_int($gen) || is_double($gen)) {
             return $gen . "";
@@ -53,7 +67,7 @@ class Log
 
             $file = fopen($filepath, "r+");
             if (fseek($file, -strlen($tableEnd), SEEK_END) == 0) {
-                fwrite($file, $html.$tableEnd);
+                fwrite($file, $html . $tableEnd);
             }
             fclose($file);
 
@@ -67,18 +81,32 @@ class Log
         }
 
     }
-    public static function clog($info){
+
+    public static function log($info)
+    {
         $log = new Log();
 
         $info = $log->toString($info);
         date_default_timezone_set("PRC");
 
         $arr["time"] = date("H:i:s");
-        $arr["ip"] =  $_SERVER["REMOTE_ADDR"];
-//    $arr["info"] =  urlencode($info);
-        $arr["info"] =  $info;
+        $arr["ip"] = $_SERVER["REMOTE_ADDR"];
+        $arr["info"] = $info;
 
         $log->createlog($arr);
+    }
 
+    public static function error($info)
+    {
+        $log = new Log();
+
+        $info = $log->toString($info);
+        date_default_timezone_set("PRC");
+
+        $arr["time"] = date("H:i:s");
+        $arr["ip"] = $_SERVER["REMOTE_ADDR"];
+        $arr["info"] = $info;
+
+        $log->createlog($arr);
     }
 }

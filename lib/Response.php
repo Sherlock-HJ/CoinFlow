@@ -114,7 +114,7 @@ class Response
      * @param mixed $data 要处理的数据
      * @return mixed
      */
-    protected function output($data)
+    private function output($data)
     {
         try {
             // 返回JSON数据格式到客户端 包含状态信息

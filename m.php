@@ -69,17 +69,24 @@ include_once BASEPATH . "lib/Check.php";
 include_once BASEPATH . "lib/helper.php";
 
 //执行类中的方法
+
 $result = call_user_func(array($object, $funcName), $params);
 
 //    instanceof
-if (is_object($result)&& get_class($result) === 'Response') {
-
-    $result->send();
-
-} else {
+if (!(!is_null($result) && is_object($result) && get_class($result) === 'Response')) {
     http_response_code(500);
-    echo "请用helper.php 文件里的 json() 方法返回数据！";
+    echo "请用helper.php 文件里的 json()/error() 方法返回数据！";
+
 }
+
+$result->send();
+
 
 //TODO 加日志
 include_once BASEPATH . "lib/Log.php";
+if (http_response_code() == 200){
+    Log::log($result->getContent());
+}else{
+    Log::error($result->getContent());
+}
+
