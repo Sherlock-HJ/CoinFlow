@@ -12,20 +12,18 @@
 
 session_start();
 
-$lastTime = $_SESSION["last_time"];
-if (empty($lastTime) || time() - $lastTime > 1) {
-    $_SESSION["last_time"] = time();
+$lastTime = $_SESSION[$_SERVER["REQUEST_URI"]];
+if (!empty($lastTime) && time() - $lastTime < 1) {
 
-} else {
     http_response_code(403);
     die("接口重复调用");
+} else {
+    $_SESSION[$_SERVER["REQUEST_URI"]] = time();
 }
 
 
 // 项目根路径
 define('BASEPATH', dirname(__FILE__) . "/");
-
-include_once BASEPATH . "lib/config.php";
 
 if (empty($_SERVER["PATH_INFO"])) {
     die("hello");
@@ -41,6 +39,7 @@ if (!file_exists($filename)) {
     die("路径不正确");
 }
 
+include_once BASEPATH . "lib/config.php";
 include_once $filename;
 
 $className = basename($classPath);

@@ -14,8 +14,21 @@ class NetWork
 {
 
     private $ch;
+    private $url;
 
-
+    private function isJson($string)
+    {
+        json_decode($string);
+        return (json_last_error() == JSON_ERROR_NONE);
+    }
+    private function output($ch)
+    {
+        $str = curl_exec($ch);
+        if ($this->isJson($str)){
+            return json_decode($str);
+        }
+        return $str;
+    }
     function __construct()
     {
         $ch = curl_init();
@@ -26,14 +39,15 @@ class NetWork
 
         //HTTPS 认证
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-        curl_setopt($ch, CURLOPT_CAINFO, BASEPATH.'crt/ca.crt');
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, !DEBUG);
+        curl_setopt($ch, CURLOPT_CAINFO, BASEPATH . 'crt/ca.crt');
 //        curl_setopt($ch, CURLOPT_CAINFO, BASEPATH.'crt/server.crt');
-        curl_setopt($ch, CURLOPT_SSLCERT, BASEPATH.'crt/coinapi.crt');
-        curl_setopt($ch, CURLOPT_SSLKEY, BASEPATH.'crt/coinapi.key');
+        curl_setopt($ch, CURLOPT_SSLCERT, BASEPATH . 'crt/coinapi.crt');
+        curl_setopt($ch, CURLOPT_SSLKEY, BASEPATH . 'crt/coinapi.key');
 
         $this->ch = $ch;
     }
+
     function __destruct()
     {
         $ch = $this->ch;
@@ -54,14 +68,16 @@ class NetWork
 
         $ch = $this->ch;
 
-        curl_setopt($ch, CURLOPT_URL, $url . "?" . $this->query($params));
+        $this->url = $url . "?" . $this->query($params);
 
-        return curl_exec($ch);
+        curl_setopt($ch, CURLOPT_URL, $this->url);
+
+        return $this->output($ch);
     }
 
     /**
      * @param string $url
-     * @param string|array $data  参数数组/URL-encoded字符串。 要发送文件，在文件名前面加上@前缀并使用完整路径。
+     * @param string|array $data 参数数组/URL-encoded字符串。 要发送文件，在文件名前面加上@前缀并使用完整路径。
      * @return mixed
      */
     function post($url, $data)
@@ -72,8 +88,8 @@ class NetWork
         curl_setopt($ch, CURLOPT_POST, 1);
 
 //        $headers[] = "Content-type: text/plain";
-//        $headers[] = "Content-type: application/x-www-from-urlencoded";
-//        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);//定义请求类型
+        $headers[] = "Content-type: application/x-www-from-urlencoded";
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);//定义请求类型
         /**
          * 传递一个数组到 CURLOPT_POSTFIELDS，
          * cURL会把数据编码成 multipart/form-data，
@@ -84,8 +100,7 @@ class NetWork
 
         curl_setopt($ch, CURLOPT_URL, $url);
 
-
-        return curl_exec($ch);
+        return $this->output($ch);
 
     }
 
@@ -99,9 +114,13 @@ class NetWork
         $p = '';
         foreach ($params as $k => $v) {
             $p .= empty($p) ? '' : '&';
-            $p .= urlencode($k) . "=" . urlencode($v);
+//            $p .= urlencode($k) . "=" . urlencode($v);
+            $p .= $k . "=" . $v;
         }
         return $p;
+    }
+    function getURL(){
+        return $this->url;
     }
 
 }

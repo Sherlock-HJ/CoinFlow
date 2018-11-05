@@ -14,7 +14,7 @@ date_default_timezone_set("PRC");
 
 function BoinOSBaseURL(){
     if (DEBUG){
-        return "https://192.168.113.107:8085/api";
+        return "http://192.168.113.107:8085/api";
     }
     return "";
 }

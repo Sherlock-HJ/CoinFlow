@@ -33,6 +33,7 @@ class Order
   `out_trade_no` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '商户订单号',
   `trade_type` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '交易类型',
   `notify_url` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '通知地址',
+  `notify_status` tinyint(2) DEFAULT '0' COMMENT '通知状态 0：失败 1：成功',
   `note` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '备注',
   `ctime` int NOT NULL,
   `paystatus` tinyint(2) DEFAULT '0' COMMENT '支付状态 0：未支付 1：支付成功，2：支付失败',
@@ -83,7 +84,7 @@ class Order
         $signObj = new Signature();
         $loob = $signObj->deSign($orderBodys, $certName);
         if ($loob === 0) {
-            return error("签名不正确");
+            return error("签名不正确",$orderBodys);
         }
         if ($loob === -1) {
             return error("签名错误");
@@ -99,28 +100,39 @@ class Order
     {
 
         $loob = Check::willPass($orderBodys, ["appid",//商户应用ID
-            "nonce_str",//随机字符串
-            "body",//商品描述
-            "out_trade_no",//商户订单号
-            "total_fee",//总金额
+            "body",//商品描述              多个用英文逗号隔开
+            "out_trade_no",//商户订单号   多个用英文逗号隔开
+            "total_fee",//总金额           多个用英文逗号隔开
+            "trade_type",//交易类型        多个用英文逗号隔开
+            "note",//备注                   多个用英文逗号隔开
             "notify_url",//通知地址
-            "trade_type",//交易类型
             "sign",//签名
-            "note",//备注
+            "nonce_str",//随机字符串
             "timestamp",//当前时间点（秒）
         ]);
         if ($loob !== 1) {
             return $loob;
         }
+
         $appid  = $orderBodys["appid"];
+        $outTradeNo = $orderBodys["out_trade_no"];
+
         $db = $this->db;
         $que = $db->query("SELECT usercode,uid,cert From payplat_access  WHERE appid='{$appid}' LIMIT 1");
 
-        $certName = null;
-        $toUid = null;
-        $toUsercode = null;
+
         if ($row = $db->fetch_assoc($que)) {
             $db->free_result($que);
+
+            //  商户单号验证重复
+            $usercode = $row["usercode"];
+            $sql ="SELECT id From pay_flow  WHERE tousercode='{$usercode}' AND out_trade_no='{$outTradeNo}' LIMIT 1";
+            $que = $db->query($sql);
+            if ($row_1 = $db->fetch_assoc($que)) {
+                $db->free_result($que);
+                return error("商户订单号重复");
+            }
+
             return $row;
 
         } else {
@@ -143,10 +155,13 @@ class Order
         }
         $fromUid = $params["uid"];
         $fromUsercode = $params["usercode"];
-
         //验 商家
         $orderBodys = $this->deOrderBody($params["order_body"]);
         $row = $this->deMerchants($orderBodys);
+
+        $certName = null;
+        $toUid = null;
+        $toUsercode = null;
         if (is_array($row)) {
             $certName = $row["cert"];
             $toUsercode = $row["usercode"];
@@ -160,7 +175,7 @@ class Order
 
         //验签
         $loob = $this->deSign($orderBodys, $certName);
-        if ($loob != 1) {
+        if ($loob !== 1) {
             return $loob;
         }
 
@@ -170,7 +185,7 @@ class Order
         $toCard = "9072000000153922506995820";
         $fromCard = "9072000000153922344546769";
 
-        $sql = sprintf("INSERT INTO pay_flow (note,trade_type,notify_url,out_trade_no,ctime,total_fee,tocard,touid, tousercode, fromcard, fromuid, fromusercode ,body, tradnum, paystatus) VALUE ('%s','%s','%s','%s',%d,%d,'%s',%d,'%s','%s',%d,'%s','%s','%s',%d)"
+        $sql = sprintf("INSERT INTO pay_flow (note,trade_type,notify_url,out_trade_no,ctime,total_fee,tocard,touid, tousercode, fromcard, fromuid, fromusercode ,body, tradnum, paystatus) VALUES ('%s','%s','%s','%s',%d,%d,'%s',%d,'%s','%s',%d,'%s','%s','%s',%d)"
             , $orderBodys["note"], $orderBodys["trade_type"], $orderBodys["notify_url"], $orderBodys["out_trade_no"], time(), $orderBodys["total_fee"], $toCard, $toUid, $toUsercode, $fromCard, $fromUid, $fromUsercode, $orderBodys["body"], $tradnum, 0);
         if ($this->db->query($sql)) {
             return json(["tradnum" => $tradnum]);
@@ -181,7 +196,7 @@ class Order
     /** 支付
      * @param $params
      */
-    private function pay($params)
+     function pay($params)
     {
         $loob = Check::willPass($params, ["pwd",//转账密码
             "tradnum"//单号
@@ -195,6 +210,7 @@ class Order
         $que = $db->query($sql);
 
         $row = $db->fetch_assoc($que);
+        $db->free_result($que);
         if (empty($row)) {
             return error("无此单");
         }
@@ -213,17 +229,141 @@ class Order
         $paramsPOST["p"] = json_encode($p);
 
         $net = new NetWork();
-        echo $net->post(BoinOSBaseURL(), $paramsPOST);
-        echo PHP_EOL;
+        $res1 = $net->post(BoinOSBaseURL(), $paramsPOST);
 
-        // TODO 发送成交消息
-        return json(["1"]);
+
+        $sql = null;
+        if ($res1->st ==1){
+            /// 转账成功 更新状态
+            $sql = sprintf("UPDATE  pay_flow SET paystatus=1  WHERE id=%d ", $params["id"]);
+        }else{
+            $sql = sprintf("UPDATE  pay_flow SET paystatus=2  WHERE id=%d ", $params["id"]);
+        }
+        if ($db->query($sql)){
+            $row["paystatus"] = $res1->st ==1?1:2;
+        }
+
+        //  发送成交消息
+        $res = $net->post($row["notify_url"], $row);
+        if ($res === 'success'){
+            $sql = sprintf("UPDATE  pay_flow SET notify_status=1  WHERE id=%d ", $params["id"]);
+            $db->query($sql);
+        }
+
+        if ($res1->st ==1){
+            return json($row);
+        }else{
+            return error($res1->msg);
+        }
+
     }
 
     /** 分账（如：商家想退款）
      * @param $params
      */
-    function fashionable($params)
+    function fashionable($params){
+        $loob = Check::willPass($params, [
+            "uid",//付款人  多人用英文逗号隔开
+            "usercode",//付款人  多人用英文逗号隔开
+            "body",//商品描述              多个用英文逗号隔开
+            "out_trade_no",//商户订单号   多个用英文逗号隔开
+            "total_fee",//总金额           多个用英文逗号隔开
+            "trade_type",//交易类型        多个用英文逗号隔开
+            "note",//备注                   多个用英文逗号隔开
+            "notify_url",//通知地址
+            "sign",//签名
+            "nonce_str",//随机字符串
+            "timestamp",//当前时间点（秒）
+            "pwd",//转账密码
+            "appid",//商户应用ID
+        ]);
+
+        if ($loob !== 1) {
+            return $loob;
+        }
+
+        $fromUid = $params["uid"];
+        $fromUsercode = $params["usercode"];
+        //验 商家
+        $row = $this->deMerchants($params);
+
+        $certName = null;
+        $toUid = null;
+        $toUsercode = null;
+        if (is_array($row)) {
+            $certName = $row["cert"];
+            $toUsercode = $row["usercode"];
+            $toUid = $row["uid"];
+
+            if ($fromUid == $toUid || $fromUsercode == $toUsercode) {
+                return error("不可以与自身交易");
+            }
+        } else {
+            return $row;
+        }
+
+        //验签
+//        return json($params);
+//        $params["sign"] = urldecode($params["sign"]);
+        $loob = $this->deSign($params, $certName);
+        if ($loob !== 1) {
+            return $loob;
+        }
+        // 生成单号  存入表中
+        $tradnum = date("YmdHis") . mt_rand(100, 999) . mt_rand(100, 999);
+        /// TODO 请求用户系统 获得用户对应的卡片
+        $toCard = "9072000000153922506995820";
+        $fromCard = "9072000000153922344546769";
+
+        $sql = sprintf("INSERT INTO pay_flow (note,trade_type,notify_url,out_trade_no,ctime,total_fee,tocard,touid, tousercode, fromcard, fromuid, fromusercode ,body, tradnum, paystatus) VALUES ('%s','%s','%s','%s',%d,%d,'%s',%d,'%s','%s',%d,'%s','%s','%s',%d)"
+            , $params["note"], $params["trade_type"], $params["notify_url"], $params["out_trade_no"], time(), $params["total_fee"], $toCard, $toUid, $toUsercode, $fromCard, $fromUid, $fromUsercode, $params["body"], $tradnum, 0);
+        if (!$this->db->query($sql)) {
+            return error("失败");
+        }
+        $params["id"] = $this->db->insert_id();
+        $paramsPOST = [];
+        $paramsPOST["orgId"] = "153922337400001";
+        $paramsPOST["f"] = "trans";
+
+        $p = [];
+        $p["from"] = $fromCard;
+        $p["to"] = $toCard;
+        $p["psw"] = $params["pwd"];
+        $p["money"] = $params["total_fee"];
+        $p["desc"] = $params["note"];
+
+        $paramsPOST["p"] = json_encode($p);
+
+        $net = new NetWork();
+        $res1 = $net->post(BoinOSBaseURL(), $paramsPOST);
+
+
+        $sql = null;
+        if ($res1->st ==1){
+            /// 转账成功 更新状态
+            $sql = sprintf("UPDATE  pay_flow SET paystatus=1  WHERE id=%d ", $params["id"]);
+        }else{
+            $sql = sprintf("UPDATE  pay_flow SET paystatus=2  WHERE id=%d ", $params["id"]);
+        }
+        if ($this->db->query($sql)){
+            $row["paystatus"] = $res1->st ==1?1:2;
+        }
+
+        //  发送成交消息
+        $res = $net->post($params["notify_url"], $params);
+        if ($res === 'success'){
+            $sql = sprintf("UPDATE  pay_flow SET notify_status=1  WHERE id=%d ", $params["id"]);
+            $this->db->query($sql);
+        }
+
+        if ($res1->st ==1){
+            return json($params);
+        }else{
+            return error($res1->msg);
+        }
+
+    }
+    function fashionable_123($params)
     {
         $loob = Check::willPass($params, ["order_body",//单子信息
             "uid",//付款人  多人用英文逗号隔开
@@ -236,27 +376,98 @@ class Order
 
         $fromUids = explode(",", $params["uid"]);
         $fromUsercodes = explode(",", $params["usercode"]);
+
+        // 暂时 限制长度为1
+        if (count($fromUids) > 1 ){
+            return error("uid 只能为一个",$fromUids);
+        }
         if (count($fromUids) != count($fromUsercodes)) {
             return error("uid 与 usercode 数量不一致");
         }
 
+        //验 商家
+        $orderBodys = $this->deOrderBody($params["order_body"]);
+        $row = $this->deMerchants($orderBodys);
 
-//        foreach ($fromUids as $fromUid){
-//            if ($fromUid == $toUid ){
-//                return error("不可以与自身交易");
-//            }
-//        }
-//        foreach ($fromUsercodes as $fromUsercode){
-//            if ( $fromUsercode == $toUsercode){
-//                return error("不可以与自身交易");
-//            }
-//        }
+        $certName = null;
+        $toUid = null;
+        $toUsercode = null;
+        if (is_array($row)) {
+            $certName = $row["cert"];
+            $toUsercode = $row["usercode"];
+            $toUid = $row["uid"];
+
+            foreach ($fromUids as $fromUid){
+                if ($fromUid == $toUid ){
+                    return error("不可以与自身交易");
+                }
+            }
+            foreach ($fromUsercodes as $fromUsercode){
+                if ( $fromUsercode == $toUsercode){
+                    return error("不可以与自身交易");
+                }
+            }
+        } else {
+            return $row;
+        }
+
+        //验签
+        $loob = $this->deSign($orderBodys, $certName);
+        if ($loob != 1) {
+            return $loob;
+        }
+        // 生成单号  存入表中
+        $bodys = explode(",", $orderBodys["body"]);
+        $notes = explode(",", $orderBodys["note"]);
+        $trade_types = explode(",", $orderBodys["trade_type"]);
+        $out_trade_nos = explode(",", $orderBodys["out_trade_no"]);
+        $total_fees = explode(",", $orderBodys["total_fee"]);
+        if (count($bodys)!= count($notes)
+            && count($bodys)!= count($trade_types)
+            &&count($bodys)!= count($out_trade_nos)
+            &&count($bodys)!= count($total_fees)){
+
+            return error("order_body 内参数 数量不一致");
+
+        }
+        $count = count($bodys);
+        $sql = "";
+        for ($num = 0; $num < $count ; $num++){
+            $body = $bodys[$num];
+            $note = $notes[$num];
+            $trade_type = $trade_types[$num];
+            $out_trade_no = $out_trade_nos[$num];
+            $total_fee = $total_fees[$num];
+            $tradnum = date("YmdHis") . mt_rand(100, 999) . mt_rand(100, 999);
+            /// TODO 请求用户系统 获得用户对应的卡片
+            $toCard = "9072000000153922506995820";
+            $fromCard = "9072000000153922344546769";
+            if ($count-1 == $num){
+                $sql .=  sprintf(" ('%s','%s','%s','%s',%d,%d,'%s',%d,'%s','%s',%d,'%s','%s','%s',%d)"
+                    , $note, $trade_type, $orderBodys["notify_url"], $out_trade_no, time(), $total_fee, $toCard, $toUid, $toUsercode, $fromCard, $fromUid, $fromUsercode, $body, $tradnum, 0);
+
+            }else{
+                $sql .=  sprintf(" ('%s','%s','%s','%s',%d,%d,'%s',%d,'%s','%s',%d,'%s','%s','%s',%d),"
+                    , $note, $trade_type, $orderBodys["notify_url"], $out_trade_no, time(), $total_fee, $toCard, $toUid, $toUsercode, $fromCard, $fromUid, $fromUsercode, $body, $tradnum, 0);
+
+            }
+
+        }
+
+        $sql = "INSERT INTO pay_flow (note,trade_type,notify_url,out_trade_no,ctime,total_fee,tocard,touid, tousercode, fromcard, fromuid, fromusercode ,body, tradnum, paystatus) VALUES  ".$sql;
+
+        if ($this->db->query($sql)) {
+            return json("成功");
+        }
 
 
-        return json("成功");
+
+
+
+        return json("失败");
     }
 
-    function de($params)
+    function en($params)
     {
         $loob = Check::willPass($params, ["appid",//商户应用ID
             "nonce_str",//随机字符串
@@ -265,11 +476,8 @@ class Order
             "total_fee",//总金额
             "notify_url",//通知地址
             "trade_type",//交易类型
-            "sign",//签名
             "note",//备注
             "timestamp",//当前时间点（秒）
-            "uid",//付款人
-            "usercode",//付款人
         ]);
         if ($loob !== 1) {
             return $loob;
@@ -277,9 +485,28 @@ class Order
 
         $signObj = new Signature();
         $url = $signObj->enSign($params, BASEPATH . "crt/mxapi.key");
-        $url = urlencode($url);
+//        $url = urlencode($url);
+
         echo $url;
-        return 1;
+//        $net = new NetWork();
+//
+//        $signObj = new Signature();
+//        $url = $signObj->deSign($this->deOrderBody($url), BASEPATH . "crt/mxapi.crt");
+//
+//        echo $url?"成功":"失败";
+//        echo PHP_EOL;
+//        echo "whj   ";
+//
+//        echo "123";
+//        echo $url;
+//        echo "123";
+//
+//        echo PHP_EOL;
+        return json(1);
+
+    }
+    function de($params)
+    {
 
     }
 
