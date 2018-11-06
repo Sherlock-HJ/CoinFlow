@@ -72,7 +72,7 @@ include_once BASEPATH . "lib/helper.php";
 $result = call_user_func(array($object, $funcName), $params);
 
 //    instanceof
-if (!(!is_null($result) && is_object($result) && get_class($result) === 'Response')) {
+if (!(!is_null($result) && isResponse($result))) {
     http_response_code(500);
     echo "请用helper.php 文件里的 json()/error() 方法返回数据！";
 

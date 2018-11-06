@@ -46,3 +46,14 @@ if (!function_exists('error')) {
         return new Response($data, 403, $header, $options);
     }
 }
+
+if (!function_exists('isResponse')) {
+    /**  对象 是否是 Response 类
+     * @param $obj
+     * @return bool
+     */
+    function isResponse($obj)
+    {
+        return is_object($obj) && get_class($obj) === 'Response';
+    }
+}
