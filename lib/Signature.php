@@ -25,7 +25,7 @@ class Signature
         openssl_free_key($priv_key_id);
 
         $sign = base64_encode($sign);
-        $sign = urlencode($sign);
+//        $sign = urlencode($sign);
 
         return "{$paramsStr}&sign={$sign}";
 

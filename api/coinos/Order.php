@@ -16,44 +16,44 @@ class Order
 
     function __construct()
     {
-        $db = Db::init();
-        $this->db = $db;
+//        $db = Db::init();
+//        $this->db = $db;
 
-        $db->query("CREATE TABLE IF NOT EXISTS `pay_flow` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `tradnum` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '单号',
-  `body` varchar(100) COLLATE utf8_bin DEFAULT NULL COMMENT '商品信息',
-  `total_fee` varchar(20) COLLATE utf8_bin DEFAULT '0' COMMENT '总金额',
-  `fromuid` int(11) NOT NULL,
-  `touid` int(11) NOT NULL,
-  `fromcard` varchar(50) NOT NULL COMMENT '卡号',
-  `tocard` varchar(50) NOT NULL,
-  `fromusercode` varchar(50) COLLATE utf8_bin DEFAULT NULL,
-  `tousercode` varchar(50) COLLATE utf8_bin DEFAULT NULL,
-  `out_trade_no` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '商户订单号',
-  `trade_type` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '交易类型',
-  `notify_url` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '通知地址',
-  `notify_status` tinyint(2) DEFAULT '0' COMMENT '通知状态 0：失败 1：成功',
-  `note` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '备注',
-  `ctime` int NOT NULL,
-  `paystatus` tinyint(2) DEFAULT '0' COMMENT '支付状态 0：未支付 1：支付成功，2：支付失败',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `tradnum` (`tradnum`)
-  ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;");
-
-        $db->query("CREATE TABLE IF NOT EXISTS `payplat_access` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `appid` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '第三方ID',
-  `secret` varchar(50) COLLATE utf8_bin DEFAULT '' COMMENT '第三方密码',
-  `cert` varchar(50) COLLATE utf8_bin DEFAULT '' COMMENT '第三方上传公钥文件',
-  `uid` int(11) DEFAULT NULL,
-  `usercode` varchar(50) COLLATE utf8_bin DEFAULT NULL,
-  `ctime` int NOT NULL,
-  `status` tinyint(4) DEFAULT '0' COMMENT '状态 1：正常 2：失效',
-  `secretstr` text COLLATE utf8_bin,
-  `appname` varchar(50) COLLATE utf8_bin DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;");
+//        $db->query("CREATE TABLE IF NOT EXISTS `pay_flow` (
+//  `id` int(11) NOT NULL AUTO_INCREMENT,
+//  `tradnum` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '单号',
+//  `body` varchar(100) COLLATE utf8_bin DEFAULT NULL COMMENT '商品信息',
+//  `total_fee` varchar(20) COLLATE utf8_bin DEFAULT '0' COMMENT '总金额',
+//  `fromuid` int(11) NOT NULL,
+//  `touid` int(11) NOT NULL,
+//  `fromcard` varchar(50) NOT NULL COMMENT '卡号',
+//  `tocard` varchar(50) NOT NULL,
+//  `fromusercode` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+//  `tousercode` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+//  `out_trade_no` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '商户订单号',
+//  `trade_type` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '交易类型',
+//  `notify_url` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '通知地址',
+//  `notify_status` tinyint(2) DEFAULT '0' COMMENT '通知状态 0：失败 1：成功',
+//  `note` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '备注',
+//  `ctime` int NOT NULL,
+//  `paystatus` tinyint(2) DEFAULT '0' COMMENT '支付状态 0：未支付 1：支付成功，2：支付失败',
+//  PRIMARY KEY (`id`),
+//  UNIQUE KEY `tradnum` (`tradnum`)
+//  ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;");
+//
+//        $db->query("CREATE TABLE IF NOT EXISTS `payplat_access` (
+//  `id` int(11) NOT NULL AUTO_INCREMENT,
+//  `appid` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '第三方ID',
+//  `secret` varchar(50) COLLATE utf8_bin DEFAULT '' COMMENT '第三方密码',
+//  `cert` varchar(50) COLLATE utf8_bin DEFAULT '' COMMENT '第三方上传公钥文件',
+//  `uid` int(11) DEFAULT NULL,
+//  `usercode` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+//  `ctime` int NOT NULL,
+//  `status` tinyint(4) DEFAULT '0' COMMENT '状态 1：正常 2：失效',
+//  `secretstr` text COLLATE utf8_bin,
+//  `appname` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+//  PRIMARY KEY (`id`)
+//) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;");
     }
 
     /** 拆分单子 URL query string

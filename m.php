@@ -82,10 +82,10 @@ $result->send();
 
 
 //TODO 加日志
-include_once BASEPATH . "lib/Log.php";
-if (http_response_code() == 200){
-    Log::log($result->getContent());
-}else{
-    Log::error($result->getContent());
-}
+//include_once BASEPATH . "lib/Log.php";
+//if (http_response_code() == 200){
+//    Log::log($result->getContent());
+//}else{
+//    Log::error($result->getContent());
+//}
 
