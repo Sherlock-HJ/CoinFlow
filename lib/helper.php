@@ -71,13 +71,17 @@ if (!function_exists('postCoinOS')) {
         $net = new NetWork();
         // TODO  配置 orgId
         $params["orgId"] = "153922337400001";
-        $url = "http://192.168.113.107:8085/api";
+        $url = "https://ykcoin.quasend.com:8085/api";
         $res = $net->post($url,$params);
 
-        if ($res&& $res->st === 1 ){
-            return json($res->result);
+        if ($res){
+            if ($res->st === 1 ){
+                return json($res->result);
+            }else{
+                return error($res->msg);
+            }
         }else{
-            return error($res->msg);
+            return error(["info"=>"CoinOS返回错误","error"=>$res]);
         }
     }
 }

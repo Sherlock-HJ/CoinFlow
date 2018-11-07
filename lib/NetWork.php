@@ -36,9 +36,8 @@ class NetWork
 
         //HTTPS 认证
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, !DEBUG);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
         curl_setopt($ch, CURLOPT_CAINFO, BASEPATH . 'crt/ca.crt');
-//        curl_setopt($ch, CURLOPT_CAINFO, BASEPATH.'crt/server.crt');
         curl_setopt($ch, CURLOPT_SSLCERT, BASEPATH . 'crt/coinapi.crt');
         curl_setopt($ch, CURLOPT_SSLKEY, BASEPATH . 'crt/coinapi.key');
 
