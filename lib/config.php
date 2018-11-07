@@ -12,12 +12,9 @@ define('DEBUG', true);
 //设置时区 为 中国
 date_default_timezone_set("PRC");
 
-function BoinOSBaseURL(){
-    if (DEBUG){
-        return "http://192.168.113.107:8085/api";
-    }
-    return "";
-}
+define('COIN_CODE', DEBUG?"ZH":"MRY");
+
+
 
 if (DEBUG) {
     // 跨域

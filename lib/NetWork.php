@@ -16,16 +16,13 @@ class NetWork
     private $ch;
     private $url;
 
-    private function isJson($string)
-    {
-        json_decode($string);
-        return (json_last_error() == JSON_ERROR_NONE);
-    }
+
     private function output($ch)
     {
         $str = curl_exec($ch);
-        if ($this->isJson($str)){
-            return json_decode($str);
+        $obj = json_decode($str);
+        if (json_last_error() == JSON_ERROR_NONE){
+            return $obj;
         }
         return $str;
     }
@@ -76,11 +73,12 @@ class NetWork
     }
 
     /**
-     * @param string $url
+     * @param $url
      * @param string|array $data 参数数组/URL-encoded字符串。 要发送文件，在文件名前面加上@前缀并使用完整路径。
+     * @param string $codeType
      * @return mixed
      */
-    function post($url, $data)
+    function post($url, $data, $codeType = "x-www-from-urlencoded")
     {
 
         $ch = $this->ch;
@@ -88,14 +86,20 @@ class NetWork
         curl_setopt($ch, CURLOPT_POST, 1);
 
 //        $headers[] = "Content-type: text/plain";
-        $headers[] = "Content-type: application/x-www-from-urlencoded";
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);//定义请求类型
+//        $headers[] = "Content-type: application/x-www-from-urlencoded";
+//        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);//定义请求类型
         /**
          * 传递一个数组到 CURLOPT_POSTFIELDS，
          * cURL会把数据编码成 multipart/form-data，
          * 而然传递一个URL-encoded字符串时，
          * 数据会被编码成 application/x-www-form-urlencoded。
          * */
+
+        if ($codeType === "x-www-from-urlencoded"){
+            $data = $this->query($data);
+        }elseif ($codeType === "form-data"){
+
+        }
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -114,8 +118,11 @@ class NetWork
         $p = '';
         foreach ($params as $k => $v) {
             $p .= empty($p) ? '' : '&';
-//            $p .= urlencode($k) . "=" . urlencode($v);
-            $p .= $k . "=" . $v;
+            if (is_array($v)){
+                $v = json_encode($v);
+            }
+            $p .= urlencode($k) . "=" . urlencode($v);
+//            $p .= $k . "=" . $v;
         }
         return $p;
     }

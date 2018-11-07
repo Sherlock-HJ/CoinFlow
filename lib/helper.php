@@ -57,3 +57,27 @@ if (!function_exists('isResponse')) {
         return is_object($obj) && get_class($obj) === 'Response';
     }
 }
+
+
+if (!function_exists('postCoinOS')) {
+    /** 向积分系统发送请求
+     * @param $params
+     * @return Response
+     */
+    function postCoinOS($params)
+    {
+        include_once BASEPATH."lib/NetWork.php";
+
+        $net = new NetWork();
+        // TODO  配置 orgId
+        $params["orgId"] = "153922337400001";
+        $url = "http://192.168.113.107:8085/api";
+        $res = $net->post($url,$params);
+
+        if ($res&& $res->st === 1 ){
+            return json($res->result);
+        }else{
+            return error($res->msg);
+        }
+    }
+}
