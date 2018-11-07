@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d400a1c6-32b9-40fc-b02e-9e6b9ee94af8" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/api/coinos/Account.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/coinos/Account.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Result.php" beforeDir="false" />
-    </list>
+    <list default="true" id="d400a1c6-32b9-40fc-b02e-9e6b9ee94af8" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,8 +91,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/api/coinos/Account.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="36" column="17" selection-start-line="32" selection-start-column="12" selection-end-line="36" selection-end-column="17" />
+            <state relative-caret-position="286">
+              <caret line="32" column="10" selection-start-line="32" selection-start-column="10" selection-end-line="32" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -187,7 +184,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="23" />
     <option name="width" value="1378" />
     <option name="height" value="780" />
@@ -291,12 +288,12 @@
       <workItem from="1541379618413" duration="30247000" />
       <workItem from="1541470566033" duration="1082000" />
       <workItem from="1541481694324" duration="6365000" />
-      <workItem from="1541551308145" duration="432000" />
+      <workItem from="1541551308145" duration="738000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="98961000" />
+    <option name="totallyTimeSpent" value="99267000" />
   </component>
   <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
@@ -524,8 +521,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/api/coinos/Account.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="36" column="17" selection-start-line="32" selection-start-column="12" selection-end-line="36" selection-end-column="17" />
+        <state relative-caret-position="286">
+          <caret line="32" column="10" selection-start-line="32" selection-start-column="10" selection-end-line="32" selection-end-column="10" />
         </state>
       </provider>
     </entry>
