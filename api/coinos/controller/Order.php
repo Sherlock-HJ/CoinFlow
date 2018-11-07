@@ -8,7 +8,6 @@
  */
 require_once BASEPATH . "lib/Db.php";
 require_once BASEPATH . "lib/Signature.php";
-require_once BASEPATH . "lib/NetWork.php";
 
 class Order
 {
@@ -217,8 +216,8 @@ class Order
         // 生成单号  存入表中
         $tradnum = date("YmdHis") . mt_rand(100, 999) . mt_rand(100, 999);
         /// TODO 请求用户系统 获得用户对应的卡片
-        $toCard = "9072000000153922506995820";
-        $fromCard = "9072000000153922344546769";
+        $toCard = "7782890000154157658537443";
+        $fromCard = "7782890000154157663863414";
 
         $sql = sprintf("INSERT INTO pay_flow (note,trade_type,notify_url,out_trade_no,ctime,total_fee,tocard,touid, tousercode, fromcard, fromuid, fromusercode ,body, tradnum, paystatus) VALUES ('%s','%s','%s','%s',%d,%d,'%s',%d,'%s','%s',%d,'%s','%s','%s',%d)"
             , $orderBodys["note"], $orderBodys["trade_type"], $orderBodys["notify_url"], $orderBodys["out_trade_no"], time(), $orderBodys["total_fee"], $toCard, $toUid, $toUsercode, $fromCard, $fromUid, $fromUsercode, $orderBodys["body"], $tradnum, 0);
@@ -251,7 +250,6 @@ class Order
         }
 
         $paramsPOST = [];
-        $paramsPOST["orgId"] = "153922337400001";
         $paramsPOST["f"] = "trans";
 
         $p = [];
@@ -263,8 +261,7 @@ class Order
 
         $paramsPOST["p"] = json_encode($p);
 
-        $net = new NetWork();
-        $res1 = $net->post(BoinOSBaseURL(), $paramsPOST);
+        $res1 = postCoinOS( $paramsPOST,false);
 
 
         $sql = null;
@@ -279,6 +276,7 @@ class Order
         }
 
         //  发送成交消息
+        $net = new NetWork();
         $res = $net->post($row["notify_url"], $row);
         if ($res === 'success') {
             $sql = sprintf("UPDATE  pay_flow SET notify_status=1  WHERE id=%d ", $params["id"]);
@@ -346,8 +344,8 @@ class Order
         // 生成单号  存入表中
         $tradnum = date("YmdHis") . mt_rand(100, 999) . mt_rand(100, 999);
         /// TODO 请求用户系统 获得用户对应的卡片
-        $toCard = "9072000000153922506995820";
-        $fromCard = "9072000000153922344546769";
+        $toCard = "7782890000154157658537443";
+        $fromCard = "7782890000154157663863414";
 
         $sql = sprintf("INSERT INTO pay_flow (note,trade_type,notify_url,out_trade_no,ctime,total_fee,tocard,touid, tousercode, fromcard, fromuid, fromusercode ,body, tradnum, paystatus) VALUES ('%s','%s','%s','%s',%d,%d,'%s',%d,'%s','%s',%d,'%s','%s','%s',%d)"
             , $params["note"], $params["trade_type"], $params["notify_url"], $params["out_trade_no"], time(), $params["total_fee"], $toCard, $toUid, $toUsercode, $fromCard, $fromUid, $fromUsercode, $params["body"], $tradnum, 0);
@@ -356,7 +354,6 @@ class Order
         }
         $params["id"] = $this->db->insert_id();
         $paramsPOST = [];
-        $paramsPOST["orgId"] = "153922337400001";
         $paramsPOST["f"] = "trans";
 
         $p = [];
@@ -366,10 +363,9 @@ class Order
         $p["money"] = $params["total_fee"];
         $p["desc"] = $params["note"];
 
-        $paramsPOST["p"] = json_encode($p);
+        $paramsPOST["p"] = $p;
 
-        $net = new NetWork();
-        $res1 = $net->post(BoinOSBaseURL(), $paramsPOST);
+        $res1 = postCoinOS( $paramsPOST,false);
 
 
         $sql = null;
@@ -384,6 +380,7 @@ class Order
         }
 
         //  发送成交消息
+        $net = new NetWork();
         $res = $net->post($params["notify_url"], $params);
         if ($res === 'success') {
             $sql = sprintf("UPDATE  pay_flow SET notify_status=1  WHERE id=%d ", $params["id"]);

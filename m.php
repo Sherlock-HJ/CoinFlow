@@ -1,14 +1,12 @@
 <?php
 /**
- * Author：helen
- * CreateTime: 2016/07/27 10:26
- * Description：
+ * Created by PhpStorm.
+ * User: wuhongjia
+ * Date: 04/11/2018
+ * Time: 20:35
  */
 
 // 应用入口文件
-
-// 权限控制
-//include_once './auth.php';
 
 // 项目根路径
 define('BASEPATH', dirname(__FILE__) . "/");
@@ -17,8 +15,7 @@ if (empty($_SERVER["PATH_INFO"])) {
     die("hello");
 }
 
-$pathArr= explode("/",$_SERVER["PATH_INFO"]);
-
+$pathArr = explode("/",$_SERVER["PATH_INFO"]);
 $className = $pathArr[2];
 $classPath = $pathArr[1]."/controller/".$className;
 $funcName = $pathArr[3];
@@ -35,6 +32,7 @@ if (!class_exists($className)) {
     http_response_code(404);
     die("路径不正确");
 }
+include_once BASEPATH . "lib/config.php";
 $object = new $className;
 
 if (!method_exists($object, $funcName)) {
@@ -64,7 +62,6 @@ foreach ($_POST as $key => $value) {
     }
 }
 
-include_once BASEPATH . "lib/config.php";
 include_once BASEPATH . "lib/Check.php";
 include_once BASEPATH . "lib/helper.php";
 

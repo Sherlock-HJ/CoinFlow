@@ -17,7 +17,7 @@ class Test
 //        $url = urlencode($url);
 
         echo $url;
-        return json(1);
+        return json("");
 
     }
     function  de($params){
@@ -28,6 +28,21 @@ class Test
         echo $url;
 
         return json($params);
+    }
+
+    function add_money($params)
+    {
+        $loob = Check::willPass($params, ["acctID"]);
+        if ($loob !== 1) {
+            return $loob;
+        }
+
+        $p = [];
+        $p["f"] = "increase";
+        $p["p"] = ["acctCode" => $params["acctID"], "money" => "1844674407370955"];
+
+        return postCoinOS($p);
+
     }
 
 }

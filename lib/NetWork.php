@@ -118,6 +118,9 @@ class NetWork
         foreach ($params as $k => $v) {
             $p .= empty($p) ? '' : '&';
             if (is_array($v)){
+//                foreach ($v as $k1 => $v1){
+//                    $v[$k1] = urlencode($v1);
+//                }
                 $v = json_encode($v);
             }
             $p .= urlencode($k) . "=" . urlencode($v);

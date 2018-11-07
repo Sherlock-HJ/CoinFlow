@@ -13,8 +13,7 @@ define('DEBUG', true);
 date_default_timezone_set("PRC");
 
 //积分系统的积分类型
-define('COIN_CODE', DEBUG?"ZH":"MRY");
-
+define('COIN_CODE', "MRY");
 
 
 if (DEBUG) {
