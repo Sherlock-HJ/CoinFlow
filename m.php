@@ -10,18 +10,6 @@
 // 权限控制
 //include_once './auth.php';
 
-session_start();
-
-$lastTime = $_SESSION[$_SERVER["REQUEST_URI"]];
-if (!empty($lastTime) && time() - $lastTime < 1) {
-
-    http_response_code(403);
-    die("接口重复调用");
-} else {
-    $_SESSION[$_SERVER["REQUEST_URI"]] = time();
-}
-
-
 // 项目根路径
 define('BASEPATH', dirname(__FILE__) . "/");
 
@@ -29,30 +17,42 @@ if (empty($_SERVER["PATH_INFO"])) {
     die("hello");
 }
 
-$path_info = $_SERVER["PATH_INFO"];
-$classPath = dirname($path_info);
-$funcName = basename($path_info);
+$pathArr= explode("/",$_SERVER["PATH_INFO"]);
 
-$filename = BASEPATH . "api" . $classPath . ".php";
+$className = $pathArr[2];
+$classPath = $pathArr[1]."/controller/".$className;
+$funcName = $pathArr[3];
+
+$filename = BASEPATH . "api/" . $classPath . ".php";
 if (!file_exists($filename)) {
     http_response_code(404);
     die("路径不正确");
 }
 
-include_once BASEPATH . "lib/config.php";
 include_once $filename;
 
-$className = basename($classPath);
 if (!class_exists($className)) {
     http_response_code(404);
     die("路径不正确");
 }
-
 $object = new $className;
 
 if (!method_exists($object, $funcName)) {
     http_response_code(404);
     die("路径不正确");
+}
+
+///接口调用限制 1秒钟调用一次
+session_start();
+if (empty( $_SESSION[$_SERVER["REQUEST_URI"]])){
+    $_SESSION[$_SERVER["REQUEST_URI"]] = 1;
+}
+$lastTime = $_SESSION[$_SERVER["REQUEST_URI"]];
+if (!empty($lastTime) && time() - $lastTime < 1) {
+    http_response_code(403);
+    die("接口重复调用");
+} else {
+    $_SESSION[$_SERVER["REQUEST_URI"]] = time();
 }
 
 
@@ -64,6 +64,7 @@ foreach ($_POST as $key => $value) {
     }
 }
 
+include_once BASEPATH . "lib/config.php";
 include_once BASEPATH . "lib/Check.php";
 include_once BASEPATH . "lib/helper.php";
 

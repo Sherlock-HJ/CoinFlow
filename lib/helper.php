@@ -84,4 +84,5 @@ if (!function_exists('postCoinOS')) {
             return error(["info"=>"CoinOS返回错误","error"=>$res]);
         }
     }
+
 }
