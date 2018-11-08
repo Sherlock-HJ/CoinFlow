@@ -72,6 +72,9 @@ class Order
         }
 
         $appid = $orderBodys["appid"];
+        if ($appid === "muxin" && empty($orderBodys["tousercode"])){
+            return error("缺少收款方tousercode");
+        }
         $outTradeNo = $orderBodys["out_trade_no"];
 
         $db = $this->db;
@@ -89,7 +92,10 @@ class Order
                 $db->free_result($que);
                 return error("商户订单号重复");
             }
+            if ($appid === "muxin"){
+                $row["usercode"] = $orderBodys["tousercode"];
 
+            }
             return $row;
 
         } else {

@@ -11,47 +11,48 @@
 // 项目根路径
 define('BASEPATH', dirname(__FILE__) . "/");
 
-if (empty($_SERVER["PATH_INFO"])) {
+if (empty($_POST["method"])) {
     die("hello");
 }
 
-$pathArr = explode("/",$_SERVER["PATH_INFO"]);
-$className = $pathArr[2];
-$classPath = $pathArr[1]."/controller/".$className;
-$funcName = $pathArr[3];
+$pathArr = explode(".",$_POST["method"]);
+unset($_POST["method"]);
+$className = $pathArr[1];
+$classPath = $pathArr[0]."/controller/".$className;
+$funcName = $pathArr[2];
 
 $filename = BASEPATH . "api/" . $classPath . ".php";
 if (!file_exists($filename)) {
     http_response_code(404);
-    die("路径不正确");
+    die("方法不存在");
 }
 
 include_once $filename;
 
 if (!class_exists($className)) {
     http_response_code(404);
-    die("路径不正确");
+    die("方法不存在");
 }
 include_once BASEPATH . "lib/config.php";
 $object = new $className;
 
 if (!method_exists($object, $funcName)) {
     http_response_code(404);
-    die("路径不正确");
+    die("方法不存在");
 }
 
-///接口调用限制 1秒钟调用一次
-session_start();
-if (empty( $_SESSION[$_SERVER["REQUEST_URI"]])){
-    $_SESSION[$_SERVER["REQUEST_URI"]] = 1;
-}
-$lastTime = $_SESSION[$_SERVER["REQUEST_URI"]];
-if (!empty($lastTime) && time() - $lastTime < 1) {
-    http_response_code(403);
-    die("接口重复调用");
-} else {
-    $_SESSION[$_SERVER["REQUEST_URI"]] = time();
-}
+/////接口调用限制 1秒钟调用一次
+//session_start();
+//if (empty( $_SESSION[$_SERVER["REQUEST_URI"]])){
+//    $_SESSION[$_SERVER["REQUEST_URI"]] = 1;
+//}
+//$lastTime = $_SESSION[$_SERVER["REQUEST_URI"]];
+//if (!empty($lastTime) && time() - $lastTime < 1) {
+//    http_response_code(403);
+//    die("接口重复调用");
+//} else {
+//    $_SESSION[$_SERVER["REQUEST_URI"]] = time();
+//}
 
 
 //参数过滤
