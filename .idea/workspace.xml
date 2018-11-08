@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d400a1c6-32b9-40fc-b02e-9e6b9ee94af8" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/coinos/controller/Order.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/coinos/controller/Order.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/coinos/controller/org.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/coinos/controller/org.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/m.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/test/controller/Test.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/test/controller/Test.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -41,12 +38,12 @@
         <counts>
           <entry key="crt" value="1" />
           <entry key="gitattributes" value="1" />
-          <entry key="php" value="58" />
+          <entry key="php" value="62" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="PHP" value="58" />
+          <entry key="PHP" value="62" />
           <entry key="PLAIN_TEXT" value="2" />
         </counts>
       </usages-collector>
@@ -59,11 +56,32 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/Signature.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="234">
+              <caret line="23" column="15" selection-start-line="23" selection-start-column="15" selection-end-line="23" selection-end-column="15" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/api/test/controller/Test.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+              <folding>
+                <element signature="e#6#91#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/api/coinos/controller/Order.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="94" column="34" selection-start-line="94" selection-start-column="34" selection-end-line="94" selection-end-column="34" />
+            <state relative-caret-position="130">
+              <caret line="302" column="24" selection-start-line="302" selection-start-column="13" selection-end-line="302" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -72,8 +90,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Could not resolve h</find>
-      <find>Could not resolve</find>
       <find>OPENSSL_PKCS1_PADDING</find>
       <find>echo</find>
       <find>preg_replace</find>
@@ -102,6 +118,8 @@
       <find>BoinOSBaseURL</find>
       <find>post</find>
       <find>method</find>
+      <find>encryp</find>
+      <find>encrypt</find>
     </findStrings>
     <replaceStrings>
       <replace>DEBUG</replace>
@@ -136,10 +154,10 @@
         <option value="$PROJECT_DIR$/lib/NetWork.php" />
         <option value="$PROJECT_DIR$/lib/config.php" />
         <option value="$PROJECT_DIR$/lib/helper.php" />
-        <option value="$PROJECT_DIR$/api/test/controller/Test.php" />
         <option value="$PROJECT_DIR$/m.php" />
         <option value="$PROJECT_DIR$/api/coinos/controller/org.php" />
         <option value="$PROJECT_DIR$/api/coinos/controller/Order.php" />
+        <option value="$PROJECT_DIR$/api/test/controller/Test.php" />
       </list>
     </option>
   </component>
@@ -149,10 +167,10 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="y" value="23" />
-    <option name="width" value="1378" />
-    <option name="height" value="780" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="1" />
+    <option name="width" value="1364" />
+    <option name="height" value="724" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -283,12 +301,12 @@
       <workItem from="1541552465301" duration="9582000" />
       <workItem from="1541563568006" duration="9084000" />
       <workItem from="1541576426566" duration="1283000" />
-      <workItem from="1541637497877" duration="4413000" />
+      <workItem from="1541637497877" duration="8230000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="123629000" />
+    <option name="totallyTimeSpent" value="127446000" />
   </component>
   <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
@@ -300,11 +318,11 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-4" y="-4" width="1374" height="732" extended-state="6" />
+    <frame x="1" y="0" width="1364" height="724" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.22280967" />
-      <window_info active="true" id="Structure" order="1" visible="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.22213855" />
+      <window_info active="true" id="Structure" order="1" visible="true" weight="0.2526636" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32994923" />
@@ -409,23 +427,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/openssl/openssl.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="741" column="9" selection-start-line="741" selection-start-column="9" selection-end-line="741" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/Result.php" />
     <entry file="file://$PROJECT_DIR$/api/coinos/user.php" />
     <entry file="file://$PROJECT_DIR$/api/test/djfkd.php" />
-    <entry file="file://$PROJECT_DIR$/lib/Signature.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="48" column="18" selection-start-line="48" selection-start-column="18" selection-end-line="48" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/standard/standard_8.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="673">
@@ -468,16 +472,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="188">
           <caret line="1047" column="9" selection-start-line="1047" selection-start-column="9" selection-end-line="1047" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/test/controller/Test.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="792">
-          <caret line="41" column="80" selection-start-line="41" selection-start-column="80" selection-end-line="41" selection-end-column="80" />
-          <folding>
-            <element signature="e#6#91#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -533,10 +527,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/openssl/openssl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="885" column="58" selection-start-line="885" selection-start-column="51" selection-end-line="885" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/Signature.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="23" column="15" selection-start-line="23" selection-start-column="15" selection-end-line="23" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/test/controller/Test.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+          <folding>
+            <element signature="e#6#91#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/api/coinos/controller/Order.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="94" column="34" selection-start-line="94" selection-start-column="34" selection-end-line="94" selection-end-column="34" />
+        <state relative-caret-position="130">
+          <caret line="302" column="24" selection-start-line="302" selection-start-column="13" selection-end-line="302" selection-end-column="24" />
         </state>
       </provider>
     </entry>

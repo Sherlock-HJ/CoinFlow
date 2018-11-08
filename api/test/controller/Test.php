@@ -14,7 +14,7 @@ class Test
     {
         $signObj = new Signature();
         $url = $signObj->enSign($params, BASEPATH . "crt/mxapi.key");
-//        $url = urlencode($url);
+        $url = urlencode($url);
 
         echo $url;
         return json("");
