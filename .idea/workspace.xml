@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d400a1c6-32b9-40fc-b02e-9e6b9ee94af8" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/coinos/controller/Account.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/coinos/controller/Account.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/test/controller/Test.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/test/controller/Test.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Signature.php" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Signature.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,37 +17,42 @@
     <session id="-1102065391">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="3" />
           <entry key="project.open.time.1" value="2" />
+          <entry key="project.open.time.10" value="2" />
+          <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.12" value="2" />
           <entry key="project.open.time.17" value="1" />
           <entry key="project.open.time.8" value="1" />
-          <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="7" />
+          <entry key="project.open.time.9" value="2" />
+          <entry key="project.opened" value="11" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="php" value="5926" />
+          <entry key="key" value="2" />
+          <entry key="php" value="6258" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PHP" value="5908" />
+          <entry key="PHP" value="6240" />
+          <entry key="PLAIN_TEXT" value="2" />
           <entry key="SQL" value="18" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="crt" value="1" />
+          <entry key="crt" value="3" />
           <entry key="gitattributes" value="1" />
-          <entry key="php" value="62" />
+          <entry key="key" value="8" />
+          <entry key="php" value="76" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="PHP" value="62" />
-          <entry key="PLAIN_TEXT" value="2" />
+          <entry key="PHP" value="76" />
+          <entry key="PLAIN_TEXT" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.php.new.class">
@@ -56,11 +64,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/Signature.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="23" column="15" selection-start-line="23" selection-start-column="15" selection-end-line="23" selection-end-column="15" />
+            <state relative-caret-position="704">
+              <caret line="44" column="8" selection-start-line="44" selection-start-column="8" selection-end-line="44" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -68,8 +76,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/api/test/controller/Test.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+            <state relative-caret-position="220">
+              <caret line="25" selection-start-line="25" selection-end-line="25" />
               <folding>
                 <element signature="e#6#91#0#PHP" expanded="true" />
               </folding>
@@ -77,11 +85,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/api/coinos/controller/Order.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="130">
+            <state relative-caret-position="490">
               <caret line="302" column="24" selection-start-line="302" selection-start-column="13" selection-end-line="302" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/api/coinos/controller/Account.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2552">
+              <caret line="116" column="19" selection-start-line="116" selection-start-column="13" selection-end-line="116" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -90,13 +107,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>OPENSSL_PKCS1_PADDING</find>
-      <find>echo</find>
-      <find>preg_replace</find>
-      <find>ereg_replace</find>
-      <find>BASEPATH</find>
-      <find>PATH_INFO</find>
-      <find>D_BUG</find>
       <find>exists</find>
       <find>halt</find>
       <find>require</find>
@@ -120,10 +130,18 @@
       <find>method</find>
       <find>encryp</find>
       <find>encrypt</find>
+      <find>print_r</find>
+      <find>pkcs12</find>
+      <find>$signature_alg</find>
+      <find>$raw_output</find>
+      <find>sha</find>
+      <find>11</find>
+      <find>$algo</find>
     </findStrings>
     <replaceStrings>
       <replace>DEBUG</replace>
       <replace>http_response_code(403)</replace>
+      <replace>acctid</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -146,7 +164,6 @@
         <option value="$PROJECT_DIR$/lib/log1.php" />
         <option value="$PROJECT_DIR$/lib/Log.php" />
         <option value="$PROJECT_DIR$/lib/Response.php" />
-        <option value="$PROJECT_DIR$/lib/Signature.php" />
         <option value="$PROJECT_DIR$/api/coinos/Order.php" />
         <option value="$PROJECT_DIR$/lib/Check.php" />
         <option value="$PROJECT_DIR$/api/coinos/Account.php" />
@@ -157,7 +174,11 @@
         <option value="$PROJECT_DIR$/m.php" />
         <option value="$PROJECT_DIR$/api/coinos/controller/org.php" />
         <option value="$PROJECT_DIR$/api/coinos/controller/Order.php" />
+        <option value="$PROJECT_DIR$/api/coinos/controller/Account.php" />
+        <option value="$PROJECT_DIR$/crt/mxapi_2.key" />
+        <option value="$PROJECT_DIR$/crt/mxapi_2_pub.key" />
         <option value="$PROJECT_DIR$/api/test/controller/Test.php" />
+        <option value="$PROJECT_DIR$/lib/Signature.php" />
       </list>
     </option>
   </component>
@@ -188,43 +209,7 @@
             <path>
               <item name="CoinFlow" type="b2602c69:ProjectViewProjectNode" />
               <item name="CoinFlow" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CoinFlow" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CoinFlow" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
-              <item name="coinos" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CoinFlow" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CoinFlow" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
-              <item name="coinos" type="462c0819:PsiDirectoryNode" />
-              <item name="controller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CoinFlow" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CoinFlow" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CoinFlow" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CoinFlow" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="controller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CoinFlow" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CoinFlow" type="462c0819:PsiDirectoryNode" />
               <item name="crt" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CoinFlow" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CoinFlow" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -301,12 +286,16 @@
       <workItem from="1541552465301" duration="9582000" />
       <workItem from="1541563568006" duration="9084000" />
       <workItem from="1541576426566" duration="1283000" />
-      <workItem from="1541637497877" duration="8230000" />
+      <workItem from="1541637497877" duration="9775000" />
+      <workItem from="1541665019651" duration="2183000" />
+      <workItem from="1541742641317" duration="1032000" />
+      <workItem from="1541752351338" duration="3128000" />
+      <workItem from="1541986648545" duration="3173000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="127446000" />
+    <option name="totallyTimeSpent" value="138507000" />
   </component>
   <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
@@ -321,8 +310,8 @@
     <frame x="1" y="0" width="1364" height="724" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.22213855" />
-      <window_info active="true" id="Structure" order="1" visible="true" weight="0.2526636" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22754946" />
+      <window_info id="Structure" order="1" weight="0.26027396" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32994923" />
@@ -359,20 +348,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/net.php" />
     <entry file="file://$PROJECT_DIR$/lib/BaseResp.php" />
-    <entry file="file://$PROJECT_DIR$/crt/mxapi.crt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crt/mxapi.key">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/pcre/pcre.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="219">
@@ -482,13 +457,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api/coinos/controller/Account.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="26">
-          <caret line="14" column="7" lean-forward="true" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/config.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
@@ -527,34 +495,93 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/openssl/openssl.php">
+    <entry file="file://$PROJECT_DIR$/crt/ca.crt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crt/mxapi.key">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="885" column="58" selection-start-line="885" selection-start-column="51" selection-end-line="885" selection-end-column="58" />
+        <state>
+          <caret column="14" selection-start-column="11" selection-end-column="14" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/Signature.php">
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/standard/standard_0.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="23" column="15" selection-start-line="23" selection-start-column="15" selection-end-line="23" selection-end-column="15" />
+        <state relative-caret-position="-435">
+          <caret line="780" column="9" selection-start-line="780" selection-start-column="9" selection-end-line="780" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/standard/standard_3.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="28" column="9" selection-start-line="28" selection-start-column="9" selection-end-line="28" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crt/mxapi.crt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/coinos/controller/Account.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2552">
+          <caret line="116" column="19" selection-start-line="116" selection-start-column="13" selection-end-line="116" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crt/mxapi_2.key">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="27" column="25" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crt/mxapi_2_pub.key">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="8" column="24" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/coinos/controller/Order.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="490">
+          <caret line="302" column="24" selection-start-line="302" selection-start-column="13" selection-end-line="302" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/hash/hash.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="159">
+          <caret line="8" column="22" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="22" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/api/test/controller/Test.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+        <state relative-caret-position="220">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
           <folding>
             <element signature="e#6#91#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api/coinos/controller/Order.php">
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/openssl/openssl.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="302" column="24" selection-start-line="302" selection-start-column="13" selection-end-line="302" selection-end-column="24" />
+        <state relative-caret-position="366">
+          <caret line="986" column="9" selection-start-line="986" selection-start-column="9" selection-end-line="986" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/Signature.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="704">
+          <caret line="44" column="8" selection-start-line="44" selection-start-column="8" selection-end-line="44" selection-end-column="8" />
         </state>
       </provider>
     </entry>

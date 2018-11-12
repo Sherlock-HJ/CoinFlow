@@ -35,14 +35,14 @@ class Account
      */
     function balance($params)
     {
-        $loob = Check::willPass($params, ["acctID"]);
+        $loob = Check::willPass($params, ["acctid"]);
         if ($loob !== 1) {
             return $loob;
         }
 
         $p = [];
         $p["f"] = "queryAcct";
-        $p["p"] = ["acctCode" => $params["acctID"]];
+        $p["p"] = ["acctCode" => $params["acctid"]];
 
         return postCoinOS($p);
 
@@ -54,18 +54,17 @@ class Account
      */
     function records($params)
     {
-        $loob = Check::willPass($params, ["acctID"]);
+        $loob = Check::willPass($params, ["acctid"]);
         if ($loob !== 1) {
             return $loob;
         }
 
         $p = [];
         $p["f"] = "queryTrans";
-        $p["p"] = ["acctCode" => $params["acctID"]];
+        $p["p"] = ["acctCode" => $params["acctid"]];
         //可选
         $p["p"] = array_merge($p["p"],Check::optional($params,["page","count"=>"pageSize"]));
 
-        print_r($p);
         return postCoinOS($p);
 
     }
@@ -76,14 +75,14 @@ class Account
      */
     function freeze($params)
     {
-        $loob = Check::willPass($params, ["acctID","money"]);
+        $loob = Check::willPass($params, ["acctid","money"]);
         if ($loob !== 1) {
             return $loob;
         }
 
         $p = [];
         $p["f"] = "freeze";
-        $p["p"] = ["acctCode" => $params["acctID"],"money"=>$params["money"]];
+        $p["p"] = ["acctCode" => $params["acctid"],"money"=>$params["money"]];
         //可选
         $p["p"] = array_merge($p["p"],Check::optional($params,["desc"]));
 
@@ -96,14 +95,14 @@ class Account
      */
     function thaw($params)
     {
-        $loob = Check::willPass($params, ["acctID","money"]);
+        $loob = Check::willPass($params, ["acctid","money"]);
         if ($loob !== 1) {
             return $loob;
         }
 
         $p = [];
         $p["f"] = "unfreeze";
-        $p["p"] = ["acctCode" => $params["acctID"],"money"=>$params["money"]];
+        $p["p"] = ["acctCode" => $params["acctid"],"money"=>$params["money"]];
         //可选
         $p["p"] = array_merge($p["p"],Check::optional($params,["desc"]));
 
@@ -111,15 +110,19 @@ class Account
         return postCoinOS($p);
     }
 
+    /** 更新密码
+     * @param $params
+     * @return int|Response
+     */
     function up_pwd($params){
-        $loob = Check::willPass($params, ["acctID","pwd"]);
+        $loob = Check::willPass($params, ["acctid","pwd"]);
         if ($loob !== 1) {
             return $loob;
         }
 
         $p = [];
         $p["f"] = "updatepsw";
-        $p["p"] = ["acctCode" => $params["acctID"],"psw"=>$params["pwd"]];
+        $p["p"] = ["acctCode" => $params["acctid"],"psw"=>$params["pwd"]];
 
 
         return postCoinOS($p);

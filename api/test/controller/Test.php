@@ -10,19 +10,24 @@ require_once BASEPATH . "lib/Signature.php";
 
 class Test
 {
+    function base64(){
+
+        echo base64_encode("wzh");
+        die(base64_decode(base64_encode("wzh")));
+    }
     function en($params)
     {
         $signObj = new Signature();
-        $url = $signObj->enSign($params, BASEPATH . "crt/mxapi.key");
-        $url = urlencode($url);
+        $url = $signObj->enSign($params, BASEPATH . "crt/mxapi_2.key");
+//        $url = urlencode($url);
 
         echo $url;
-        return json("");
+        die(PHP_EOL);
 
     }
     function  de($params){
         $signObj = new Signature();
-        $url = $signObj->deSign($params, BASEPATH . "crt/mxapi.crt");
+        $url = $signObj->deSign($params, BASEPATH . "crt/mxapi_2_pub.key");
 //        $url = urlencode($url);
 
         echo $url;
@@ -32,14 +37,14 @@ class Test
 
     function add_money($params)
     {
-        $loob = Check::willPass($params, ["acctID"]);
+        $loob = Check::willPass($params, ["acctid"]);
         if ($loob !== 1) {
             return $loob;
         }
 
         $p = [];
         $p["f"] = "increase";
-        $p["p"] = ["acctCode" => $params["acctID"], "money" => "1844674407370955"];
+        $p["p"] = ["acctCode" => $params["acctid"], "money" => "1844674407370955"];
 
         return postCoinOS($p);
 
