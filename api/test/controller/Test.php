@@ -18,7 +18,7 @@ class Test
     function en($params)
     {
         $signObj = new Signature();
-        $url = $signObj->enSign($params, BASEPATH . "crt/coinapi.key");
+        $url = $signObj->enSign($params, BASEPATH . "crt/private.pem");
 //        $url = urlencode($url);
 
         echo $url;
@@ -27,7 +27,7 @@ class Test
     }
     function  de($params){
         $signObj = new Signature();
-        $url = $signObj->deSign($params, BASEPATH . "crt/mxapi_2_pub.key");
+        $url = $signObj->deSign($params, BASEPATH . "crt/rsacert.crt");
 //        $url = urlencode($url);
 
         echo $url;

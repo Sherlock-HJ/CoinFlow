@@ -19,9 +19,7 @@ class Signature
         $priv_key_id = openssl_get_privatekey(file_get_contents($privateName));
 
         $paramsStr = $this->create_linkstring($this->arg_sort($this->para_filter($params)));
-//        openssl_sign($paramsStr, $sign, $priv_key_id,OPENSSL_ALGO_SHA256);
-
-        openssl_private_encrypt(hash("SHA256", $paramsStr), $sign, $priv_key_id);
+        openssl_sign($paramsStr, $sign, $priv_key_id, OPENSSL_ALGO_SHA256);
         openssl_free_key($priv_key_id);
 
         $sign = base64_encode($sign);
@@ -45,11 +43,9 @@ class Signature
 
         $sign = base64_decode($params["sign"]);// base64解密
 
-//        return  openssl_verify($paramsStr, $sign, $pub_key_id, OPENSSL_ALGO_SHA256);
-        openssl_public_decrypt($sign, $verify, $pub_key_id);
+        $loob = openssl_verify($paramsStr, $sign, $pub_key_id, OPENSSL_ALGO_SHA256);
         openssl_free_key($pub_key_id);
-
-        return hash("sha256", $paramsStr) === $verify;
+        return $loob;
     }
 
 
