@@ -21,7 +21,7 @@ class Check
 
             if (empty($params[$value])) {
 
-                return error(2000, "缺少参数: " . $value);
+                return error( "缺少参数: " . $value, 2000);
             }
         }
         return $loob;
