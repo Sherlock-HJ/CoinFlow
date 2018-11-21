@@ -14,8 +14,8 @@ $password = "Ji33n2gSh24iYe5";
 $hostname = "test.intranet.mysql.db.quasend.com";
 if (DEBUG){
     $username = "root";
-    $password = "qwertyui";
-    $hostname = "localhost";
+    $password = "ubuntu";
+    $hostname = "192.168.113.107";
 }
 
 return [

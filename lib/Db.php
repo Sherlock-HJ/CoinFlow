@@ -10,6 +10,7 @@ class Db {
         $db = new Db();
         $params = include (BASEPATH."lib/database.php");
         $db->connect($params["hostname"],$params["username"],$params["password"],$params["database"]);
+        $db->query("set names utf8;");
 
         return $db;
     }
@@ -37,6 +38,7 @@ class Db {
         if($dbname) {
             @mysql_select_db($dbname, $this->link);
         }
+
     }
 
     function select_db($dbname) {
