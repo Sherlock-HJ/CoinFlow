@@ -9,20 +9,27 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
-$username = "jingshiye";
-$password = "Ji33n2gSh24iYe5";
-$hostname = "test.intranet.mysql.db.quasend.com";
+$username = "whjrencaidev";
+$password = "R6KAwtS3";
+$hostname = "test.intranet.mysql.db.quasend.com:3306";
+$database = "rencaidev";
+
 if (DEBUG){
-    $username = "root";
-    $password = "ubuntu";
-    $hostname = "192.168.113.107";
+//    $username = "root";
+//    $password = "ubuntu";
+//    $hostname = "192.168.113.107";
+//    $database = "CoinFlow";
+    $username = "whjrencaidev";
+    $password = "R6KAwtS3";
+    $hostname = "test.intranet.mysql.db.quasend.com:3306";
+    $database = "rencaidev";
 }
 
 return [
     // 服务器地址
     'hostname'        => $hostname,
     // 数据库名
-    'database'        => 'CoinFlow',
+    'database'        => $database,
     // 用户名
     'username'        => $username,
     // 密码

@@ -9,17 +9,15 @@
 // 调试模式
 define('DEBUG', true);
 
+define('RUNTIME_PATH', BASEPATH.'runtime/');
+
 //设置时区 为 中国
 date_default_timezone_set("PRC");
 
-//积分系统的积分类型
-define('COIN_CODE', "MRY");
-
-
-if (DEBUG) {
+//if (DEBUG) {
     // 跨域
     header("Access-Control-Allow-Origin: *");
-}
+//}
 
 
 

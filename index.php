@@ -11,14 +11,25 @@
 // 项目根路径
 define('BASEPATH', dirname(__FILE__) . "/");
 
-if (empty($_POST["method"])) {
+
+$method= null;
+if (!empty($_GET["method"])){
+    $method = $_GET["method"];
+}
+
+if (!empty($_POST["method"])){
+    $method = $_POST["method"];
+}
+
+if ($method== null) {
     die("hello");
 }
 
-$pathArr = explode(".",$_POST["method"]);
+$pathArr = explode(".",$method);
 unset($_POST["method"]);
+$osName = $pathArr[0];
 $className = $pathArr[1];
-$classPath = $pathArr[0]."/controller/".$className;
+$classPath = $osName."/controller/".$className;
 $funcName = $pathArr[2];
 
 $filename = BASEPATH . "api/" . $classPath . ".php";
@@ -62,7 +73,7 @@ foreach ($_POST as $key => $value) {
         $params[$key] = $value;
     }
 }
-
+include_once BASEPATH . "api/" . $osName . "/config.php";
 include_once BASEPATH . "lib/Check.php";
 include_once BASEPATH . "lib/helper.php";
 
@@ -73,8 +84,7 @@ $result = call_user_func(array($object, $funcName), $params);
 //    instanceof
 if (!(!is_null($result) && isResponse($result))) {
     http_response_code(500);
-    echo "请用helper.php 文件里的 json()/error() 方法返回数据！";
-
+    echo "请用helper.php 文件里的 json()/xml()/error() 方法返回数据！";
 }
 
 $result->send();

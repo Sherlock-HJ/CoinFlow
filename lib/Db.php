@@ -4,11 +4,13 @@ class Db {
     var $querynum = 0;
     var $link;
     var $charset;
+    public $database;
 
 
     public static function init(){
         $db = new Db();
         $params = include (BASEPATH."lib/database.php");
+        $db->database = $params["database"];
         $db->connect($params["hostname"],$params["username"],$params["password"],$params["database"]);
         $db->query("set names utf8;");
 

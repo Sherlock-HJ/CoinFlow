@@ -7,6 +7,22 @@
  */
 
 
+if (!function_exists('xml')) {
+    /**
+     * 获取Response对象实例
+     * @param mixed   $data 返回的数据
+     * @param integer $code 状态码
+     * @param array   $header 头部
+     * @param array   $options 参数
+     * @return Response
+     */
+    function xml($data = [], $code = 200, $header = [], $options = [])
+    {
+        include_once BASEPATH."lib/Response.php";
+        return new Response($data,'xml', $code, $header, $options);
+    }
+}
+
 if (!function_exists('json')) {
     /**
      * 获取Response对象实例
@@ -19,7 +35,7 @@ if (!function_exists('json')) {
     function json($data = [], $code = 200, $header = [], $options = [])
     {
         include_once BASEPATH."lib/Response.php";
-        return new Response($data, $code, $header, $options);
+        return new Response($data,'json', $code, $header, $options);
     }
 }
 
@@ -43,7 +59,7 @@ if (!function_exists('error')) {
         }
         $data["error_info"] = $info;
 
-        return new Response($data, 403, $header, $options);
+        return new Response($data, 'json',403, $header, $options);
     }
 }
 
@@ -66,13 +82,19 @@ if (!function_exists('postCoinOS')) {
      */
     function postCoinOS($params,$directly = true)
     {
+
         include_once BASEPATH."lib/NetWork.php";
 
-        $net = new NetWork();
         // TODO  配置 orgId
         $params["orgId"] = "154140269500001";
-        $url = "https://ykcoin.quasend.com:8085/api";
-        $res = $net->post($url,$params);
+        $url = "http://ykcoin.quasend.com:8085/api";
+        if (DEBUG){
+            // TODO  配置 orgId
+            $params["orgId"] = "154406026600001";
+            $url = "http://139.196.9.180:18085/api";
+        }
+        $res = NetWork::post($url,$params);
+
 
         if ($directly){
             if ($res){
@@ -82,7 +104,7 @@ if (!function_exists('postCoinOS')) {
                     return error($res->msg);
                 }
             }else{
-                return error(["info"=>"CoinOS返回错误","error"=>$res]);
+                return error(["info"=>"CoinOS返回错误","error"=>[$params,$res]]);
             }
         }else{
             return $res;

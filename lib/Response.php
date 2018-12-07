@@ -11,7 +11,7 @@ class Response
     // 原始数据
     protected $data;
 
-    // 当前的contentType
+    // 当前的contentType content-type: text/html; charset=utf-8
     protected $contentType = 'application/json';
 
     // 字符集
@@ -28,16 +28,17 @@ class Response
     protected $header = [];
 
     protected $content = null;
+    protected $type = 'json';
 
     /**
      * 构造函数
-     * @access   public
+     * @access   html
      * @param mixed $data    输出数据
      * @param int   $code
      * @param array $header
      * @param array $options 输出参数
      */
-    public function __construct($data = '', $code = 200, array $header = [], $options = [])
+    public function __construct($data = '',$type = 'json', $code = 200, array $header = [], $options = [])
     {
         $this->data($data);
         if (!empty($options)) {
@@ -46,11 +47,12 @@ class Response
         $this->contentType($this->contentType, $this->charset);
         $this->header = array_merge($this->header, $header);
         $this->code   = $code;
+        $this->type   = $type;
     }
 
     /**
      * 输出数据设置
-     * @access public
+     * @access html
      * @param mixed $data 输出数据
      * @return $this
      */
@@ -74,7 +76,7 @@ class Response
 
     /**
      * 发送数据到客户端
-     * @access public
+     * @access html
      * @return mixed
      * @throws \InvalidArgumentException
      */
@@ -83,7 +85,6 @@ class Response
 
         // 处理输出数据
         $data = $this->getContent();
-
 
         if (!headers_sent() && !empty($this->header)) {
             // 发送状态码
@@ -114,7 +115,7 @@ class Response
      * @param mixed $data 要处理的数据
      * @return mixed
      */
-    private function output($data)
+    private function output_json($data)
     {
         try {
             // 返回JSON数据格式到客户端 包含状态信息
@@ -132,6 +133,7 @@ class Response
             throw $e;
         }
     }
+
     /**
      * 获取输出数据
      * @return mixed
@@ -139,7 +141,15 @@ class Response
     public function getContent()
     {
         if (null == $this->content) {
-            $content = $this->output($this->data);
+            $content = null;
+            if ($this->type === 'json'){
+                $content = $this->output_json($this->data);
+
+            }elseif ($this->type === 'xml'){
+                $content = $this->data;
+                $this->contentType('text/html', $this->charset);
+
+            }
 
             if (null !== $content && !is_string($content) && !is_numeric($content) && !is_callable([
                     $content,

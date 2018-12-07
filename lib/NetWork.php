@@ -13,62 +13,23 @@
 class NetWork
 {
 
-    private $ch;
-    private $url;
 
-
-    private function output($ch)
-    {
-        $str = curl_exec($ch);
-        $obj = json_decode($str);
-        if (json_last_error() == JSON_ERROR_NONE){
-            return $obj;
-        }
-        return $str;
-    }
-    function __construct()
-    {
-        $ch = curl_init();
-
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
-        curl_setopt($ch, CURLOPT_HEADER, false);
-
-        //HTTPS 认证
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-        curl_setopt($ch, CURLOPT_CAINFO, BASEPATH . 'crt/ca.crt');
-        curl_setopt($ch, CURLOPT_SSLCERT, BASEPATH . 'crt/coinapi.crt');
-        curl_setopt($ch, CURLOPT_SSLKEY, BASEPATH . 'crt/coinapi.key');
-
-        $this->ch = $ch;
-    }
-
-    function __destruct()
-    {
-        $ch = $this->ch;
-
-        echo curl_error($ch);
-
-        curl_close($ch);
-
-    }
 
     /**
      * @param string $url
      * @param array $params 参数数组
      * @return mixed
      */
-    function get($url, array $params)
+    public static function get($url, array $params)
     {
 
-        $ch = $this->ch;
+        $ch = self::init($url);
 
-        $this->url = $url . "?" . $this->query($params);
+        $url = $url . "?" . self::query($params);
 
-        curl_setopt($ch, CURLOPT_URL, $this->url);
+        curl_setopt($ch, CURLOPT_URL, $url);
 
-        return $this->output($ch);
+        return self::output($ch);
     }
 
     /**
@@ -77,10 +38,10 @@ class NetWork
      * @param string $codeType
      * @return mixed
      */
-    function post($url, $data, $codeType = "x-www-from-urlencoded")
+    public static function post($url, $data, $codeType = "x-www-from-urlencoded")
     {
 
-        $ch = $this->ch;
+        $ch = self::init($url);
 
         curl_setopt($ch, CURLOPT_POST, 1);
 
@@ -95,7 +56,7 @@ class NetWork
          * */
 
         if ($codeType === "x-www-from-urlencoded"){
-            $data = $this->query($data);
+            $data = self::query($data);
         }elseif ($codeType === "form-data"){
 
         }
@@ -103,7 +64,7 @@ class NetWork
 
         curl_setopt($ch, CURLOPT_URL, $url);
 
-        return $this->output($ch);
+        return self::output($ch);
 
     }
 
@@ -112,24 +73,65 @@ class NetWork
      * @param array $params
      * @return string
      */
-    function query(array $params)
+    private static function query(array $params)
     {
         $p = '';
         foreach ($params as $k => $v) {
             $p .= empty($p) ? '' : '&';
             if (is_array($v)){
-//                foreach ($v as $k1 => $v1){
-//                    $v[$k1] = urlencode($v1);
-//                }
+                foreach ($v as $k1 => $v1){
+                    $v[$k1] = strval($v1);
+                }
                 $v = json_encode($v);
+
             }
+
             $p .= urlencode($k) . "=" . urlencode($v);
 //            $p .= $k . "=" . $v;
         }
         return $p;
     }
-    function getURL(){
-        return $this->url;
+    private static function output($ch)
+    {
+        $str = curl_exec($ch);
+
+        self::dealloc($ch);
+
+        $obj = json_decode($str);
+        if (json_last_error() == JSON_ERROR_NONE){
+            return $obj;
+        }
+        return $str;
+    }
+    private static function init($url)
+    {
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+
+
+        if (stripos($url,'https://')===0){
+            //HTTPS 认证
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+            curl_setopt($ch, CURLOPT_CAINFO, BASEPATH . 'crt/ca.crt');
+            curl_setopt($ch, CURLOPT_SSLCERT, BASEPATH . 'crt/coinapi.crt');
+            curl_setopt($ch, CURLOPT_SSLKEY, BASEPATH . 'crt/coinapi.key');
+        }
+
+
+        return $ch;
+    }
+
+    private static function dealloc($ch)
+    {
+
+        echo curl_error($ch);
+
+        curl_close($ch);
+
     }
 
 }
